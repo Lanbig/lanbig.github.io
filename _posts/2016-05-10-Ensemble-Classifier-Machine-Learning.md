@@ -194,7 +194,7 @@ bwplot(resamps, layout = c(5, 1))
 Grid Search has been performed to find the best parameters for each model and this plot just shows an example of how the models performed with different parameters 
 ![Ensemble Tree](http://{{ site.url }}/img/content_images/enb3.png)
 
-##Performance Evaluation 
+## Performance Evaluation 
 
 Having fitted all models on each data set, we can see the the Random Forest has the best overall performance, even though the Boosted tree perform better in only imbalanced data. The second best model so far is Bagged Cart (Bagged Tree) model on both balanced and PCA data set, and Random Forest for the unbalanced data. 
 
