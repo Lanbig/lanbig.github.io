@@ -4,7 +4,7 @@ title: Building Predictive Modeling with Decision Tree, Naïve Bayes, Random for
 feature-img: "img/feature_images/newsheader.jpg"
 ---
 
-Online News Popularity data set has been selected from the UC Irvine Machine Learning Repository. The articles in this data set were published by Mashable. This data set is donated on January 8, 2015. The data set includes 39797 observations and 61 combined attributes. The goal of this project is to find non-trivial, potential useful knowledge and predict the popularity of the articles, which is the number of shares in social networks.
+Online News Popularity data set has been selected from the UC Irvine Machine Learning Repository [Link](https://archive.ics.uci.edu/ml/datasets/Online+News+Popularity). The articles in this data set were published by Mashable. This data set is donated on January 8, 2015. The data set includes 39797 observations and 61 combined attributes. The goal of this project is to find non-trivial, potential useful knowledge and predict the popularity of the articles, which is the number of shares in social networks.
 
 
 * The explanatory attributes for Online News Popularity data set include URL of the article, number of words in the title, number of words in the content, number of images, number of videos, polarity of positive words and polarity of negative words are numeric. These attributes can be used to create a predictive model.
@@ -35,11 +35,12 @@ qplot(df.onNews$dataChannel, geom="histogram",ylab = "count",binwidth = 30,
 qplot(df.onNews$pubDay, geom="histogram",ylab = "count",binwidth = 30,
       main = "Histogram for publication day", xlab = "Day", fill=df.onNews$share2bins ) 
 ```
-![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
+![Decision Tree](http://{{ site.url }}/img/content_images/pvn4.png)
+
 Most positive cases (high popularity) are captured in Lifestyle, social and tech channel. These channels seem to be much popular than business, entertainment and word channel. For example, Social channel had 76 percent of positive cases (high popularity) and technology channel had 64 percent of positive cases. 
 
 
-![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
+![Decision Tree](http://{{ site.url }}/img/content_images/pvn5.png)
 In reviewing positive cases (high popularity) on the publication day, most news shared on weekend seems to be in the “high popularity” group. About 75 percent of the news published on Sunday was popular. The news published on weekday tent to be in “low popularity” group. For example, the majority of the news shared on Wednesday and Tuesday were unpopular.
 
 
