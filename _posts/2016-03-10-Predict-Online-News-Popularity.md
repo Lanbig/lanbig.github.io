@@ -10,6 +10,8 @@ Online News Popularity data set has been selected from the UC Irvine Machine Lea
 * The explanatory attributes for Online News Popularity data set include URL of the article, number of words in the title, number of words in the content, number of images, number of videos, polarity of positive words and polarity of negative words are numeric. These attributes can be used to create a predictive model.
 * The response attribute is the number of shares in social network (popularity).
 
+<script src="https://gist.github.com/Lanbig/9c365cbd372c0d7aed81011338893e91.js"></script>
+
 ```R
 ###########Required Library##########
 library(rpart.plot)
