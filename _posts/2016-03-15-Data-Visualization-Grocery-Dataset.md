@@ -15,7 +15,7 @@ This visualization was run in R, Tableau and D3. Link to Github(https://github.c
 
 ## Sale Trends
 
-![Sale Trends Heat Map](https://github.com/Lanbig/CSC465-Project/raw/master/CalendarHeat-Sales.png)
+![Sale Trend Heat Map](http://{{ site.url }}/img/content_images/viz1.png)
 
 A calendar heat map is a graphical representation that can visualize values over days in a calendar. Moreover, using this heat map allowed us to see the overall pattern in the data set. In this graph, our group used red color to represent the days that had a high sales value, and used blue to represent the days that had a low sales value. 
 
@@ -35,6 +35,7 @@ A calendar heat map is a graphical representation that can visualize values over
 
 ## Department and Product Buying Associations
 
+![Network Graph](http://{{ site.url }}/img/content_images/viz2.png)
 
 Network graphs revealed the relationships between different departments and product categories. With this plot, we used lines with direction, and combined the thickness of lines to represent relationships between collections of data (departments/products) that related to buyers’ habits.
 
@@ -57,3 +58,32 @@ Network graphs revealed the relationships between different departments and prod
 * Network maps could be constructed for different stores to see if similar products are purchased together across all stores.
 
 * Customers could be segmented by age, with a separate network graph for each. This would enable us to see if buying habits change with age.
+
+
+![Chord Diagram](http://{{ site.url }}/img/content_images/viz3.png)
+
+We used chord diagram as an alternative beyond network graph to display inter-relationships among the products in the grocery data set. Each product is divided and represented on the edge of a circle with different colors. This chord diagram was developed by D3. One important advantage of using D3 is that it is an interactive webpage. It also allows you to hover the mouse over the products to show the inter-relationship of each product. Coffee for example, you will see multiple lines with different colors and thickness clearly show the relationships between coffee and another product.
+
+**Link for chord diagram**
+
+* http://demo.lanbig.com/CSC465/d3-chord-diagrams-master/pro.html
+* http://demo.lanbig.com/CSC465/d3-chord-diagrams-master/dep.html
+
+**Product relationships** 
+
+* Customers are most likely buy coffee with beers/ ales, and least likely to buy with film and camera products.
+People who have a baby are more likely to buy baby foods with beers/ ales and coffee
+
+**Ideas for further exploration**
+
+* All products could be added to the chord diagram and should be divided by department and arranged until the final diagram is not too crowded.
+
+## One lasting..
+**Tree map and Bubble plot**
+
+This tree map sought to explore the customer age and what type of products that customs were more likely to purchase at the store. This graph can help the store target their customers more effectively. Size shows sum of sales value.  Color shows the number of coupons applied to the product departments. The marks are labeled by customers age and product departments. 
+
+![Chord Diagram](http://{{ site.url }}/img/content_images/viz4.png)
+![Chord Diagram](http://{{ site.url }}/img/content_images/viz5.png)
+
+
