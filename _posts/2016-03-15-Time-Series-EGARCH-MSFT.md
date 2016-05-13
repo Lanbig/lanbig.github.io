@@ -66,9 +66,13 @@ Since we have confirmed serial correlation in the conditional variance of the pr
 This enables us to use GARCH model to model the variance of the MSFT stock price time series.
 Model fitting
 There were 4 models applied to MSFT stock:
+
 * GARCH with normally distributed errors
+
 * GARCH with T distributed errors
+
 * EGARCH with T distributed errors
+
 * TGARCH with T distributed errors
 
 As a result, EGARCH model turned out to be the best one based on BIC.
@@ -121,7 +125,9 @@ LogLikelihood : 12249.67
 ```
 
 Now, we are going to look into the result.
+
 * AR(0) mean model with standard EGARCH(1,1) model for variance & t-distribution has been selected for the best model.
+
 * Fitted model: 
 rt = 0.000163 + at, at=σtet 
 ln(σ2t) = -0.045584 + (-0.033122 et-1 + 0.118418(|et-1| - E(|et-1|)) + 0.994380 ln(σ2t-1) 
