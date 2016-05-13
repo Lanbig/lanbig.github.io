@@ -22,13 +22,20 @@ pricets = zoo(myd_lim$Adj.Close, as.Date(as.character(myd_lim$Date),format=c("%Y
 autoplot(pricets)
 
 ```
-![My helpful screenshot](http://{{ site.url }}/img/content_images/seriescoredata.png)
-![MSFT Time Series]({{ site.url }}/img/content_images/seriescoredata.png)
+![MSFT Time Series](http://{{ site.url }}/img/content_images/timeseries.png)
 
+Originally, we took the data set from the IPO (Initial Public Offering) date of March 13, 1986. However, there was too much of trend since the stock has split many times. With this in mind, we decided to start to our data set in February of 1998. As you can see there is a steep run up during the dot com bubble of the late 1990’s and early 2000. The tech bubble peaked on March 10, 2000. Next there was a steep drop, and then the stock hung around 20 for years. Then during the Mortgage crisis the stock dropped down into the teens, bottoming in 2009. Since the company made Satya Nadella the CEO, the stock has had a nice rally up to the volatility of early 2016.
+
+Next, we going to use acf for checking non-stationary behavior.
 
 ```R
 acf(coredata(pricets))
 
+```
+
+
+```R
+# the ACF function of the first difference
 dx=diff(coredata(pricets)) 
 acf(as.vector(dx),lag.max=30, main="ACF of first difference")
 adfTest(dx, lags=3, type=c("ct"))
@@ -36,8 +43,24 @@ adfTest(dx, lags=5, type=c("ct"))
 adfTest(dx, lags=7, type=c("ct"))
 
 rets = log(pricets/lag(pricets, -1))
+head(rets)
+
+basicStats(rets)
+autoplot(rets)
 
 ```
+![MSFT Time Series](http://{{ site.url }}/img/content_images/logret.png)
+
+The ACF plot(below) of the squared log returns of MSFT decays very slowly. The lags are all much larger than 2 standard deviations. This confirms large autocorrelations in the squared log returns. Therefore we can conclude that the log returns process has a strong non-linear dependence.
+
+![MSFT Time Series](http://{{ site.url }}/img/content_images/archeffect.png)
+
+
+Since we have confirmed serial correlation in the conditional variance of the process, we can say that the conditional variance of the process at time t is a function of the variance at previous times. Therefore we can use the past to explain or predict the current variance. This enables us to use GARCH model to model the variance of the MSFT stock price time series.
+
+
+
+
 
 ## Model Fitting
 This enables us to use GARCH model to model the variance of the MSFT stock price time series.
