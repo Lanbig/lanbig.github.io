@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Useful features from CARET package in R
-feature-img: "img/feature_images/ensemble.jpg"
+feature-img: "img/feature_images/ensemble2.jpg"
 ---
 
-test 2
+test 22
