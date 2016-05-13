@@ -10,7 +10,7 @@ Online News Popularity data set has been selected from the UC Irvine Machine Lea
 * The explanatory attributes for Online News Popularity data set include URL of the article, number of words in the title, number of words in the content, number of images, number of videos, polarity of positive words and polarity of negative words are numeric. These attributes can be used to create a predictive model.
 * The response attribute is the number of shares in social network (popularity).
 
-<script src="https://gist.github.com/Lanbig/9c365cbd372c0d7aed81011338893e91.js"></script>
+The full source code is in [Github Gist](https://gist.github.com/Lanbig/9c365cbd372c0d7aed81011338893e91)
 
 ```R
 ###########Required Library##########
@@ -24,31 +24,26 @@ library(RColorBrewer)
 library(ggplot2)
 ```
 
-## Data Preprocessing and Exploratory
-
-
-
+## Data Exploratory
 ```R
-OnlineNewsPopularity = read.csv("OnlineNewsPopularity.csv", header = TRUE)
+library(ggplot2)
+theme_set(theme_bw(base_size = 28))
 
-###########Data Preprpcessing step##########
+qplot(df.onNews$dataChannel, geom="histogram",ylab = "count",binwidth = 30,
+      main = "Histogram for data channel", xlab = "Channel", fill=df.onNews$share2bins ) 
 
-#Duplicate dataset
-df.onNews <- OnlineNewsPopularity
-
-#Remove ID
-df.onNews$url  = NULL
-df.onNews$timedelta = NULL
-
-#Change Dummy variables to factors
-######### check it out from my github. ##############
-
-
-#Class distribution Bin data
-df.onNews$share2bins <- ifelse(OnlineNewsPopularity$shares > 1300, "high", "low")
-df.onNews$share2bins <- as.factor(df.onNews$share2bins)
+qplot(df.onNews$pubDay, geom="histogram",ylab = "count",binwidth = 30,
+      main = "Histogram for publication day", xlab = "Day", fill=df.onNews$share2bins ) 
 ```
+![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
+Most positive cases (high popularity) are captured in Lifestyle, social and tech channel. These channels seem to be much popular than business, entertainment and word channel. For example, Social channel had 76 percent of positive cases (high popularity) and technology channel had 64 percent of positive cases. 
 
+
+![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
+In reviewing positive cases (high popularity) on the publication day, most news shared on weekend seems to be in the “high popularity” group. About 75 percent of the news published on Sunday was popular. The news published on weekday tent to be in “low popularity” group. For example, the majority of the news shared on Wednesday and Tuesday were unpopular.
+
+
+## Model Fitting
 
 In this data set, we'll define an 66%/34% for training and test data.
 
@@ -60,8 +55,6 @@ data_train <- df.onNews[ trainIndex,]
 data_test <- df.onNews[-trainIndex,]
 ```
 
-
-## Model Fitting
 **Decision Tree Analysis**
 ```
 fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
