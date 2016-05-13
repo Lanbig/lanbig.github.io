@@ -10,7 +10,7 @@ In this example, we sought to better understand these relationships through a va
 
 The data includes item-level detail for more than 276,484 transactions, as well as data on marketing efforts during the time period, detailed specifications on the 92,260 products available for sale, and demographic data for 2,500 customers. 
 
-This visualization was run in R, Tableau and D3. Link to Github(https://github.com/Lanbig/CSC465-Project) for source code. 
+This visualization was run in R, Tableau and D3. [Link to Github](https://github.com/Lanbig/CSC465-Project) for source code. 
 
 
 ## Sale Trends
