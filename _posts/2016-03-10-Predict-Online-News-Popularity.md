@@ -56,6 +56,7 @@ data_test <- df.onNews[-trainIndex,]
 ```
 
 **Decision Tree Analysis**
+
 ```
 fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
 
@@ -65,6 +66,7 @@ fancyRpartPlot(fit.rpart8$finalModel)
 
 
 **Naïve Bayes Analysis**
+
 ```R
 > fit.nb= train(share2bins ~ . ,data=data_train , method= "nb", trControl=trainControl(method="cv",number=10))
 
@@ -87,6 +89,7 @@ Resampling results across tuning parameters:
 ```
 
 **Random Forest Analysis**
+
 ```R
 > fit.rf = train(share2bins ~ . ,data_train , method= "rf", ntree=501 , tuneGrid = data.frame(mtry = 4), 
 +                allowParallel=TRUE,trControl=trainControl(method="cv",number=10) )
