@@ -68,7 +68,7 @@ fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength 
 
 fancyRpartPlot(fit.rpart8$finalModel)
 ```
-![Decision Tree](http://{{ site.url }}/img/content_images/viz1.png)
+![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
 
 
 **Naïve Bayes Analysis**
@@ -115,12 +115,12 @@ Resampling results
 
 Tuning parameter 'mtry' was held constant at a value of 4
 ```
-![Random Forest](http://{{ site.url }}/img/content_images/viz2.png)
+![Random Forest](http://{{ site.url }}/img/content_images/pvn2.png)
 
 
 
 ## Performance Evaluation
 As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
 
-![Performance comparision](http://{{ site.url }}/img/content_images/viz3.png)
+![Performance comparision](http://{{ site.url }}/img/content_images/pvn33.png)
 
