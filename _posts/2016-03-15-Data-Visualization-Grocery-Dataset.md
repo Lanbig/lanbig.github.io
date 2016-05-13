@@ -78,7 +78,7 @@ People who have a baby are more likely to buy baby foods with beers/ ales and co
 
 * All products could be added to the chord diagram and should be divided by department and arranged until the final diagram is not too crowded.
 
-## One lasting..
+## One last thing..
 **Tree map and Bubble plot**
 
 This tree map sought to explore the customer age and what type of products that customs were more likely to purchase at the store. This graph can help the store target their customers more effectively. Size shows sum of sales value.  Color shows the number of coupons applied to the product departments. The marks are labeled by customers age and product departments. 

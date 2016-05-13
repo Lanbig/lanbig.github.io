@@ -115,5 +115,5 @@ Tuning parameter 'mtry' was held constant at a value of 4
 ## Performance Evaluation
 As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
 
-![Performance comparision](http://{{ site.url }}/img/content_images/pvn33.png)
+![Performance comparision](http://{{ site.url }}/img/content_images/pvn3.png)
 
