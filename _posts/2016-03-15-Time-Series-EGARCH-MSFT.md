@@ -71,24 +71,11 @@ There were 4 models applied to MSFT stock:
 * EGARCH with T distributed errors
 * TGARCH with T distributed errors
 
+As a result, EGARCH model turned out to be the best one based on BIC.
+Below was the model we selected because it was the best fit.
+
 ```R
-#MODEL 1: AR(0)-GARCH(1,1) with normally distributed errors
-garch11.spec=ugarchspec(variance.model=list(garchOrder=c(1,1)),
-                        mean.model=list(armaOrder=c(0,0)))
-garch11.fit=ugarchfit(spec=garch11.spec, data=rets)
-garch11.fit
-par(mfrow=c(1,1))
-plot(garch11.fit)
-
-#MODEL 2: AR(0)-GARCH(1,1) with T distributed errors
-garch11.t.spec=ugarchspec(variance.model=list(garchOrder=c(1,1)),
-                            mean.model=list(armaOrder=c(0,0)), distribution.model = "std")
-
-garch11.t.fit=ugarchfit(spec=garch11.t.spec, data=rets)
-garch11.t.fit
-
-
-#MODEL 3: AR(0)-EARCH(1,1) with T distributed errors *** The best one based on BIC
+#MODEL 3: AR(0)-EARCH(1,1) with T distributed errors 
 egarch11.t.spec=ugarchspec(variance.model=list(model = "eGARCH",
                                                  garchOrder=c(1,1)), mean.model=list(armaOrder=c(0,0)),
                              distribution.model = "std")
@@ -96,12 +83,7 @@ egarch11.t.fit=ugarchfit(spec=egarch11.t.spec, data=rets)
 egarch11.t.fit
 plot(egarch11.t.fit)
 
-egarch11.t.fcst=ugarchforecast(egarch11.t.fit, n.ahead=12)
-egarch11.t.fcst
-plot(egarch11.t.fcst)
-
 ```
-Below was the model we selected because it was the best fit
 
 ```
 > egarch11.t.fit
@@ -137,6 +119,28 @@ shape   4.960095    0.379098   13.08394 0.000000
 
 LogLikelihood : 12249.67 
 ```
+
+Now, we are going to look into the result.
+* AR(0) mean model with standard EGARCH(1,1) model for variance & t-distribution has been selected for the best model.
+* Fitted model: 
+rt = 0.000163 + at, at=σtet 
+ln(σ2t) = -0.045584 + (-0.033122 et-1 + 0.118418(|et-1| - E(|et-1|)) + 0.994380 ln(σ2t-1) 
+With t distribution with 5 degrees of freedom (approximated to nearest integer). 
+
+* Alpha1 is negative (= -0.033). Leverage effect is significant. Therefore volatility reacts more heavily to negative shocks.
+
+* Beta1 represents persistence of shocks on volatility. Our 1 = .99438 which is very high. Strong, long lasting persistence. Transition smoother and takes a long time from high to low volatility.
+
+* We used the BIC criteria to select the best model. This model had the smallest BIC at -5.3545 of the 4 models we created.
+
+* Pearson Goodness of Fit Test
+H0: selected distribution is a good fit for model
+Ha: selected distribution not a good fit
+The p-values > .05 . Therefore we can’t reject the hypothesis that the selected t-distribution is a good fit for the model.
+
+
+
+
 
 
 
