@@ -200,7 +200,6 @@ Having fitted all models on each data set, we can see the the Random Forest has 
 
 ![Ensemble Tree](http://{{ site.url }}/img/content_images/enb4.png)
 
-
 ## Conclusion
 Based on this data set, we can conclude for these findings that Bagging is more outperformed than Boosting techniques on binary class variables, but Boosting might perform best on unbalanced data. Even though Kristína Machová found Boosting has higher performance in her work, it makes sense to us that we found Bagging has higher performance on this certain data because cross validation is used in experiment making our samples become small which fit very well in Bagging models. Within boosting technique, boosted tree perform the best across all different data. For the bagging, Random Forest perform the best among other bagging techniques (Bagged Tree and Bagged LDA).
 
