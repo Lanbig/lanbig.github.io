@@ -41,6 +41,7 @@ Most positive cases (high popularity) are captured in Lifestyle, social and tech
 
 
 ![Decision Tree](http://{{ site.url }}/img/content_images/pvn5.png)
+
 In reviewing positive cases (high popularity) on the publication day, most news shared on weekend seems to be in the “high popularity” group. About 75 percent of the news published on Sunday was popular. The news published on weekday tent to be in “low popularity” group. For example, the majority of the news shared on Wednesday and Tuesday were unpopular.
 
 
@@ -58,15 +59,45 @@ data_test <- df.onNews[-trainIndex,]
 
 **Decision Tree Analysis**
 
+
 ```
 fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
 
+> print(fit.rpart8)
+CART 
+
+26166 samples
+   47 predictor
+    2 classes: 'high', 'low' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 23550, 23550, 23548, 23550, 23549, 23550, ... 
+Resampling results across tuning parameters:
+
+  cp           Accuracy   Kappa       Accuracy SD  Kappa SD  
+  0.003605375  0.6339914  0.25555564  0.009806259  0.02197829
+  0.004629630  0.6331886  0.25559910  0.007883932  0.01681616
+  0.008030154  0.6297105  0.25140243  0.006750814  0.01460905
+  0.008767617  0.6284876  0.24931886  0.006772829  0.01474812
+  0.014175680  0.6216475  0.23057982  0.009779804  0.01893964
+  0.020567027  0.6144631  0.21667075  0.011735050  0.02443565
+  0.040560472  0.6005906  0.19493916  0.012689902  0.02248112
+  0.124713209  0.5495640  0.05205161  0.025837704  0.08415047
+
+Accuracy was used to select the optimal model using  the largest value.
+The final value used for the model was cp = 0.003605375.
+
 fancyRpartPlot(fit.rpart8$finalModel)
 ```
+The visualization below shows the tree structure and the branches of tree. The most important five OnlineNewsPopularity data features are kw_avg_avg, data channel entertainment, data channel tech, is_weekend and dataChanelSocial. These features are on the top of the decision tree and they have the most important power to separate the classes.
+
 ![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
 
 
 **Naïve Bayes Analysis**
+
+This technique is based applying Bayes’ theorem. One significant benefit of using Naïve Bayes Analysis is that it can be very fast compared to Random Forest modeling technique or other methods. 
 
 ```R
 > fit.nb= train(share2bins ~ . ,data=data_train , method= "nb", trControl=trainControl(method="cv",number=10))
@@ -91,6 +122,8 @@ Resampling results across tuning parameters:
 
 **Random Forest Analysis**
 
+From the Kaggle competitions, random forest analysis tends to do very well and scoring high on the Kaggle leaderboard because a random forest analysis improves predictive accuracy by generating a large number of bootstrapped trees (boosting mechanisms)
+
 ```R
 > fit.rf = train(share2bins ~ . ,data_train , method= "rf", ntree=501 , tuneGrid = data.frame(mtry = 4), 
 +                allowParallel=TRUE,trControl=trainControl(method="cv",number=10) )
@@ -112,6 +145,8 @@ Resampling results
 
 Tuning parameter 'mtry' was held constant at a value of 4
 ```
+The visualization below reveals the important variables used in splitting nodes down the tree.  For example, the most important Online News Popularity dataset features are Is_weekend, Kw_avg_avg, Datachanel and Self_reference variables. Most important features from a random forest analysis are about the same with decision tree analysis. 
+
 ![Random Forest](http://{{ site.url }}/img/content_images/pvn2.png)
 
 
@@ -120,4 +155,6 @@ Tuning parameter 'mtry' was held constant at a value of 4
 As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
 
 ![Performance comparision](http://{{ site.url }}/img/content_images/pvn3.png)
+
+For recommendation and future action, there are some outliers in the variables and these outliers may impact on the accuracy of the predictive models. 
 
