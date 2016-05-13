@@ -39,49 +39,17 @@ df.onNews$url  = NULL
 df.onNews$timedelta = NULL
 
 #Change Dummy variables to factors
-df.onNews$pubDay <- ifelse(OnlineNewsPopularity$weekday_is_monday == 1, "monday", 
-                           ifelse((OnlineNewsPopularity$weekday_is_tuesday == 1), "tuesday", 
-                                  ifelse((OnlineNewsPopularity$weekday_is_wednesday == 1), "wednesday", 
-                                         ifelse((OnlineNewsPopularity$weekday_is_thursday == 1), "thursday", 
-                                                ifelse((OnlineNewsPopularity$weekday_is_friday == 1), "friday", 
-                                                       ifelse((OnlineNewsPopularity$weekday_is_saturday == 1), "saturday", "sunday"))))))
-df.onNews$pubDay <- as.factor(df.onNews$pubDay)
-
-
-df.onNews$weekday_is_monday    = NULL
-df.onNews$weekday_is_tuesday   = NULL
-df.onNews$weekday_is_wednesday = NULL
-df.onNews$weekday_is_thursday  = NULL
-df.onNews$weekday_is_friday    = NULL
-df.onNews$weekday_is_saturday  = NULL
-df.onNews$weekday_is_sunday    = NULL
-
-
-df.onNews$dataChannel <- ifelse(OnlineNewsPopularity$data_channel_is_lifestyle == 1,"lifestyle",
-                                ifelse(OnlineNewsPopularity$data_channel_is_entertainment == 1,"entertainment",
-                                       ifelse(OnlineNewsPopularity$data_channel_is_bus == 1,"business",
-                                              ifelse(OnlineNewsPopularity$data_channel_is_socmed == 1,"Social",
-                                                     ifelse(OnlineNewsPopularity$data_channel_is_tech == 1,"tech", "world")))))
-
-df.onNews$data_channel_is_lifestyle = NULL
-df.onNews$data_channel_is_entertainment = NULL
-df.onNews$data_channel_is_bus = NULL
-df.onNews$data_channel_is_socmed = NULL
-df.onNews$data_channel_is_tech = NULL
-df.onNews$data_channel_is_world = NULL
-
-df.onNews$dataChannel <- as.factor(df.onNews$dataChannel)
+######### check it out from my github. ##############
 
 
 #Class distribution Bin data
 df.onNews$share2bins <- ifelse(OnlineNewsPopularity$shares > 1300, "high", "low")
 df.onNews$share2bins <- as.factor(df.onNews$share2bins)
-
-
 ```
 
 
 In this data set, we'll define an 66%/34% for training and test data.
+
 ```R
 set.seed(415)
 # define an 66%/34% train/test split of the dataset
@@ -92,5 +60,44 @@ data_test <- df.onNews[-trainIndex,]
 
 
 ## Model Fitting
+**Decision Tree Analysis**
+```
+fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
+
+fancyRpartPlot(fit.rpart8$finalModel)
+```
+![Decision Tree](http://{{ site.url }}/img/content_images/viz1.png)
+
+
+**Naïve Bayes Analysis**
+
+**Random Forest Analysis**
+```R
+> fit.rf = train(share2bins ~ . ,data_train , method= "rf", ntree=501 , tuneGrid = data.frame(mtry = 4), 
++                allowParallel=TRUE,trControl=trainControl(method="cv",number=10) )
+> 
+ 
+Random Forest 
+
+26166 samples
+   47 predictors
+    2 classes: 'high', 'low' 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold) 
+Summary of sample sizes: 17444, 17444, 17444 
+Resampling results
+
+  Accuracy   Kappa      Accuracy SD  Kappa SD  
+  0.6651762  0.3222725  0.006759968  0.01355711
+
+Tuning parameter 'mtry' was held constant at a value of 4
+```
+![Random Forest](http://{{ site.url }}/img/content_images/viz2.png)
+
+
 
 ## Performance Evaluation
+As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
+![Performance comparision](http://{{ site.url }}/img/content_images/viz3.png)
+
