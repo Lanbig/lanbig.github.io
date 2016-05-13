@@ -4,7 +4,11 @@ title: Using R, Tableau and D3 to visualization Grocery sales and Marketing data
 feature-img: "img/feature_images/timeseries1.jpg"
 ---
 
-Data science company Dunnhumby released a dataset called “The Complete Journey” that provided the data for our exploration. “The Complete Journey” provides a comprehensive look at grocery sales and marketing over a 2-year period. The data includes item-level detail for more than 276,484 transactions, as well as data on marketing efforts during the time period, detailed specifications on the 92,260 products available for sale, and demographic data for 2,500 customers. We sought to better understand these relationships through a variety of visualization techniques.
+Data science company Dunnhumby released a dataset called “The Complete Journey” that provided the data for our exploration. “The Complete Journey” provides a comprehensive look at grocery sales and marketing over a 2-year period. 
+
+In this example, we sought to better understand these relationships through a variety of visualization techniques.
+
+The data includes item-level detail for more than 276,484 transactions, as well as data on marketing efforts during the time period, detailed specifications on the 92,260 products available for sale, and demographic data for 2,500 customers. 
 
 This visualization was run in R, Tableau and D3. Link to Github(https://github.com/Lanbig/CSC465-Project) for source code. 
 
