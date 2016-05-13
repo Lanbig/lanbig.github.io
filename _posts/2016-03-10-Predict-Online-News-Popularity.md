@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building Predictive Modeling with Decision Tree, Naïve Bayes, Random forest in R.
-feature-img: "img/feature_images/news_header.jpg"
+feature-img: "img/feature_images/newsheader.jpg"
 ---
 
 Online News Popularity data set has been selected from the UC Irvine Machine Learning Repository. The articles in this data set were published by Mashable. This data set is donated on January 8, 2015. The data set includes 39797 observations and 61 combined attributes. The goal of this project is to find non-trivial, potential useful knowledge and predict the popularity of the articles, which is the number of shares in social networks.
