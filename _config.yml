@@ -15,7 +15,7 @@ theme:
      
 
      
-  header_text_feature_image: "img/app_13.jpg"
+  header_text_feature_image: "img/feature_images/fheader1.jpg"
   footer_text: >
       The MIT License (MIT) , 
       Powered by <a href="http://jekyllrb.com">Jekyll</a> with <a href="https://rohanchandra.github.io/project/type/">Type Theme</a> and pictures from <a href="http://www.freepik.com">Freepik</a> 
