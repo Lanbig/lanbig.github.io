@@ -5,7 +5,7 @@ feature-img: "img/feature_images/useful.jpg"
 ---
 
 
-
+There are a lot of benefit using Caret package. These are my favorite things from this package.
 
 
 
@@ -47,9 +47,9 @@ fitControl <- trainControl(## 10-fold CV
                            ## repeated ten times
                            repeats = 10)
 
-model <- train(y ~ ., data = training, method = "gbm", trControl = fitControl)
-model <- train(y ~ ., data = training, method = "rf", trControl = fitControl)
-model <- train(y ~ ., data = training, method = "svmRadial", trControl = fitControl)
+gbm.model <- train(y ~ ., data = training, method = "gbm", trControl = fitControl)
+rf.model <- train(y ~ ., data = training, method = "rf", trControl = fitControl)
+svm.model <- train(y ~ ., data = training, method = "svmRadial", trControl = fitControl)
 ```
 
 
