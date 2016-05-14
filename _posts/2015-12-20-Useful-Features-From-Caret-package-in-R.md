@@ -5,6 +5,11 @@ feature-img: "img/feature_images/useful.jpg"
 ---
 
 
+
+
+
+
+
 ## Parallel Processing
 
 ```R
@@ -13,6 +18,9 @@ registerDoMC(cores = 5)
 
 model <- train(y ~ ., data = training, method = "gbm")
 ```
+
+
+
 
 ## Spliting Data based on outcome.
 
@@ -27,6 +35,9 @@ irisTrain <- iris[ trainIndex,]
 irisTest  <- iris[-trainIndex,]
 ```
 
+
+
+
 ## Model Training and Parameter Tuning
 
 ```R
@@ -40,5 +51,7 @@ model <- train(y ~ ., data = training, method = "gbm", trControl = fitControl)
 model <- train(y ~ ., data = training, method = "rf", trControl = fitControl)
 model <- train(y ~ ., data = training, method = "svmRadial", trControl = fitControl)
 ```
+
+
 
 There are many benefits of using caret package. Check this link:[http://topepo.github.io/caret/index.html](http://topepo.github.io/caret/index.html)
