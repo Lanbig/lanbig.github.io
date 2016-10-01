@@ -1,75 +1,47 @@
-# SITE CONFIGURATION
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "lanbig.github.io" # the base hostname & protocol for your site
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
 
-# THEME-SPECIFIC CONFIGURATION
-theme:
-  # Meta
-  title: "{LANBIG} BEN "
-  avatar: avatar.png
-  gravatar: # Email MD5 hash
-  description: "Machine Learning" # used by search engines
+# Site settings
+title: Lanbig
+email: lanbig@msn.com
+description: In the world of Data Science and Machine Leaning. 
+baseurl: '' # the subpath of your site, e.g. /blog
+url: 'https://lanbigben.github.io' # the base hostname & protocol for your site
+twitter_username: 
+github_username: lanbig
+linkedin_username: lanbig
 
-  # Header and footer text
-  header_text: >
-     
-
-     
-  header_text_feature_image: "img/feature_images/fheader1.jpg"
-  footer_text: >
-      The MIT License (MIT) , 
-      Powered by <a href="http://jekyllrb.com">Jekyll</a> with <a href="https://rohanchandra.github.io/project/type/">Type Theme</a> and pictures from <a href="http://www.freepik.com">Freepik</a> 
-
-  # Icons
-  rss: false
-  email_address: "lanbig@msn.com"
-  behance:
-  bitbucket:
-  dribbble:
-  facebook: 
-  flickr: 
-  github: "/lanbig"
-  google_plus:
-  instagram:
-  linkedin: "https://www.linkedin.com/in/lanbig" # Full URL
-  pinterest:
-  reddit:
-  soundcloud:
-  stack_exchange:  # Full URL
-  steam:
-  tumblr:
-  twitter:
-  wordpress:
-  youtube:
-
-  # Scripts
-  google_analytics: # Tracking ID, e.g. "UA-000000-01"
-  disqus_shortname:
-  katex: true # Enable if using math markup
-
-  # Localization strings
-  str_follow_on: "Follow on"
-  str_rss_follow: "Follow RSS feed"
-  str_email: "Email"
-  str_next: "Next"
-  str_prev: "Prev"
-  str_continue_reading: "Continue reading"
-
-  # Colours, typography and padding
-  # Open the "_sass > base" folder, and open "_variables.scss"
-  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
-
-  # Post navigation
-  post_navigation: false
-
-# PAGINATION
-paginate: 5
-paginate_path: "blog/page:num"
-
-# BUILD SETTINGS
+# Build settings
 markdown: kramdown
-highlighter: rouge
-sass:
-  sass_dir: _sass
-  style: :compressed
-gems: [jekyll-paginate]
+permalink: pretty
+include:
+  - _pages
+exclude:
+  - Gemfile
+  - Gemfile.lock
+gems:
+  - jekyll-paginate
+  - jekyll/tagging
+
+# Pagination
+paginate: 12
+
+# Tags
+tag_page_layout: tag_page
+tag_page_dir: tag
+tag_permalink_style: pretty
+
+authors:
+  ben:
+    name: Ben
+    display_name: Ben Rodrawangpai
+    bio: Ben has over 3 years of experience in Data Science, and he is a MSc in Predictive Analytics candidate at DePaul University. Also, he is working as a Data Analytics Intern at Underwriters Laboratories Inc.
+    gravatar: https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAATOAAAAJGU3ZGE5YjZkLWYyNWEtNDUyMi04OWI5LTY4N2E5ODNkYTgxMg.jpg
+    email: lanbig@msn.com
+    web: 
+    linkedin: lanbig
+    github: lanbig

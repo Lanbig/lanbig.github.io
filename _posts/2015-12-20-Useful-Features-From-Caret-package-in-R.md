@@ -1,16 +1,14 @@
 ---
 layout: post
 title: Useful features from CARET package in R
-feature-img: "img/feature_images/useful.jpg"
+image: "/images/posts/feature_images/useful.jpg"
+author: ben
 ---
 
 
 There are a lot of benefit using Caret package. These are my favorite things from this package.
 
-
-
-
-## Parallel Processing
+### Parallel Processing ###
 
 ```R
 library(doMC)
@@ -19,10 +17,8 @@ registerDoMC(cores = 5)
 model <- train(y ~ ., data = training, method = "gbm")
 ```
 
-
-
-
-## Spliting Data based on outcome.
+<br />
+### Spliting Data based on outcome ###
 
 ```R
 library(caret)
@@ -35,10 +31,8 @@ irisTrain <- iris[ trainIndex,]
 irisTest  <- iris[-trainIndex,]
 ```
 
-
-
-
-## Model Training and Parameter Tuning
+<br />
+### Model Training and Parameter Tuning ###
 
 ```R
 fitControl <- trainControl(## 10-fold CV

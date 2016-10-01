@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Building Predictive Modeling with Decision Tree, Naïve Bayes, Random forest in R.
-feature-img: "img/feature_images/newsheader.jpg"
+image: "/images/posts/feature_images/newsheader.jpg"
+author: ben
 ---
 
 Online News Popularity data set has been selected from the UC Irvine Machine Learning Repository [Link](https://archive.ics.uci.edu/ml/datasets/Online+News+Popularity). The articles in this data set were published by Mashable. This data set is donated on January 8, 2015. The data set includes 39797 observations and 61 combined attributes. The goal of this project is to find non-trivial, potential useful knowledge and predict the popularity of the articles, which is the number of shares in social networks.
@@ -24,6 +25,7 @@ library(RColorBrewer)
 library(ggplot2)
 ```
 
+<br />
 ## Data Exploratory
 ```R
 library(ggplot2)
@@ -35,16 +37,17 @@ qplot(df.onNews$dataChannel, geom="histogram",ylab = "count",binwidth = 30,
 qplot(df.onNews$pubDay, geom="histogram",ylab = "count",binwidth = 30,
       main = "Histogram for publication day", xlab = "Day", fill=df.onNews$share2bins ) 
 ```
-![Decision Tree](http://{{ site.url }}/img/content_images/pvn4.png)
+![Decision Tree]({{ site.url }}/images/posts/content_images/pvn4.png)
 
 Most positive cases (high popularity) are captured in Lifestyle, social and tech channel. These channels seem to be much popular than business, entertainment and word channel. For example, Social channel had 76 percent of positive cases (high popularity) and technology channel had 64 percent of positive cases. 
 
 
-![Decision Tree](http://{{ site.url }}/img/content_images/pvn5.png)
+![Decision Tree]({{ site.url }}/images/posts/content_images/pvn5.png)
 
 In reviewing positive cases (high popularity) on the publication day, most news shared on weekend seems to be in the “high popularity” group. About 75 percent of the news published on Sunday was popular. The news published on weekday tent to be in “low popularity” group. For example, the majority of the news shared on Wednesday and Tuesday were unpopular.
 
 
+<br />
 ## Model Fitting
 
 In this data set, we'll define an 66%/34% for training and test data.
@@ -57,8 +60,8 @@ data_train <- df.onNews[ trainIndex,]
 data_test <- df.onNews[-trainIndex,]
 ```
 
+<br />
 **Decision Tree Analysis**
-
 
 ```
 fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
@@ -92,9 +95,9 @@ fancyRpartPlot(fit.rpart8$finalModel)
 ```
 The visualization below shows the tree structure and the branches of tree. The most important five OnlineNewsPopularity data features are kw_avg_avg, data channel entertainment, data channel tech, is_weekend and dataChanelSocial. These features are on the top of the decision tree and they have the most important power to separate the classes.
 
-![Decision Tree](http://{{ site.url }}/img/content_images/pvn1.png)
+![Decision Tree]({{ site.url }}/images/posts/content_images/pvn1.png)
 
-
+<br />
 **Naïve Bayes Analysis**
 
 This technique is based applying Bayes’ theorem. One significant benefit of using Naïve Bayes Analysis is that it can be very fast compared to Random Forest modeling technique or other methods. 
@@ -120,6 +123,7 @@ Resampling results across tuning parameters:
 
 ```
 
+<br />
 **Random Forest Analysis**
 
 From the Kaggle competitions, random forest analysis tends to do very well and scoring high on the Kaggle leaderboard because a random forest analysis improves predictive accuracy by generating a large number of bootstrapped trees (boosting mechanisms)
@@ -147,14 +151,14 @@ Tuning parameter 'mtry' was held constant at a value of 4
 ```
 The visualization below reveals the important variables used in splitting nodes down the tree.  For example, the most important Online News Popularity dataset features are Is_weekend, Kw_avg_avg, Datachanel and Self_reference variables. Most important features from a random forest analysis are about the same with decision tree analysis. 
 
-![Random Forest](http://{{ site.url }}/img/content_images/pvn2.png)
+![Random Forest]({{ site.url }}/images/posts/content_images/pvn2.png)
 
 
-
+<br />
 ## Performance Evaluation
 As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
 
-![Performance comparision](http://{{ site.url }}/img/content_images/pvn3.png)
+![Performance comparision]({{ site.url }}/images/posts/content_images/pvn3.png)
 
 For recommendation and future action, there are some outliers in the variables and these outliers may impact on the accuracy of the predictive models. 
 
