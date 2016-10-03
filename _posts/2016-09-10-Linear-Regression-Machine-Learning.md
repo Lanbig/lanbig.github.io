@@ -58,6 +58,7 @@ end
 
 end
 ```
+<br/>
 
 #### Visualizing J(theta_0, theta_1)
 
