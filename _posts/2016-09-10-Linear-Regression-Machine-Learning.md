@@ -22,5 +22,5 @@ Visualizing J(theta_0, theta_1)
 Surface plot
 
 Contour plot
-![Surface plot]({{ site.url }}/images/posts/content_images/linear-cost-function.png)
-![Contour plot]({{ site.url }}/images/posts/content_images/linear-cost-function2.png)
+![Surface plot](/images/posts/content_images/linear-cost-function.png)
+![Contour plot](/images/posts/content_images/linear-cost-function2.png)
