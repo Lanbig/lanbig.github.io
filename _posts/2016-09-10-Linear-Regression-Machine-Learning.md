@@ -8,7 +8,7 @@ author: ben
 [**Updating...**] In this part of this exercise, I will implement linear regression with one variable to predict profits for a food truck. 
 
 The first figure shows the scatter plot of profit and population in the city. 
-![Scatter plot and linear line]({{ site.url }}/images/posts/content_images/linear-fit.png)
+![Scatter plot and linear line](/images/posts/content_images/linear-fit.png)
 
 In this part, I will fit the linear regression parameters θ to our dataset using gradient descent. 
 ```
