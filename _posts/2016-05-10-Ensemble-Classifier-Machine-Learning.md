@@ -23,6 +23,7 @@ require(party)
 ```
 
 <br />
+
 ## Data Preprocessing
 
 Our data set consists of 5 malignancy ratings (1, 2, 3, 4 and 5) given by 4 different radiologists, we then decide to bin the classes by grouping them into 2 classes -class 1, 2, 3 and class 4 and 5 as inconclusive and likely suspicious of malignancy respectively. 
@@ -192,6 +193,7 @@ bwplot(resamps, layout = c(5, 1))
 ```
 
 <br />
+
 ## Experimental Results
 Grid Search has been performed to find the best parameters for each model and this plot just shows an example of how the models performed with different parameters 
 ![Ensemble Tree]({{ site.url }}/images/posts/content_images/enb3.png)
@@ -203,12 +205,6 @@ Having fitted all models on each data set, we can see the the Random Forest has 
 ![Ensemble Tree]({{ site.url }}/images/posts/content_images/enb4.png)
 
 <br />
+
 ## Conclusion
 Based on this data set, we can conclude for these findings that Bagging is more outperformed than Boosting techniques on binary class variables, but Boosting might perform best on unbalanced data. Even though Kristína Machová found Boosting has higher performance in her work, it makes sense to us that we found Bagging has higher performance on this certain data because cross validation is used in experiment making our samples become small which fit very well in Bagging models. Within boosting technique, boosted tree perform the best across all different data. For the bagging, Random Forest perform the best among other bagging techniques (Bagged Tree and Bagged LDA).
-
-
-
-
-
-
-
