@@ -18,6 +18,7 @@ model <- train(y ~ ., data = training, method = "gbm")
 ```
 
 <br />
+
 ### Spliting Data based on outcome ###
 
 ```R
@@ -32,6 +33,7 @@ irisTest  <- iris[-trainIndex,]
 ```
 
 <br />
+
 ### Model Training and Parameter Tuning ###
 
 ```R
