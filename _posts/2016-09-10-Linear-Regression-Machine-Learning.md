@@ -102,4 +102,4 @@ hold on;
 plot(theta(1), theta(2), 'rx', 'MarkerSize', 10, 'LineWidth', 2);
 ```
 
-**Full source code [Github](https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1)**
+**Full source code: [Github](https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1)**
