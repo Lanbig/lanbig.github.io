@@ -5,8 +5,8 @@ image: "/images/posts/feature_images/linear-cost-function.png"
 author: ben
 ---
 
-In this part of this exercise, I will implement linear regression with one variable to predict profits for a food truck. 
-Matlab is the tools I used for this project. **Link to [Github](https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1)**
+In this part of this exercise from Coursera Machine Learning, I will implement linear regression with one variable to predict profits for a food truck. 
+Matlab is the tools I used for this project. **Link to [Github](https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1)**
 
 ### Plotting the data
 The first figure shows the scatter plot of profit and population in the city. 
@@ -58,7 +58,7 @@ end
 end
 ```
 
-Visualizing J(theta_0, theta_1)
+#### Visualizing J(theta_0, theta_1)
 
 #### Surface plot
 ![Surface plot](/images/posts/content_images/linear-cost-function.png)
@@ -101,3 +101,5 @@ xlabel('\theta_0'); ylabel('\theta_1');
 hold on;
 plot(theta(1), theta(2), 'rx', 'MarkerSize', 10, 'LineWidth', 2);
 ```
+
+**Full source code [Github](https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1)**
