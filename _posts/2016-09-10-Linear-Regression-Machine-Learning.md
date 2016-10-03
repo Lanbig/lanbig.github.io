@@ -11,6 +11,7 @@ Matlab is the tools I used for this project. **Link to [Github](https://github.c
 ### Plotting the data
 The first figure shows the scatter plot of profit and population in the city. 
 ![Scatter plot and linear line](/images/posts/content_images/linear-fit.png)
+
 The scatter plot of the training data reveals the positive relationship between profit and population. Also, the blue line is the regression line.
 
 ```matlab
