@@ -26,6 +26,7 @@ library(ggplot2)
 ```
 
 <br />
+
 ## Data Exploratory
 ```R
 library(ggplot2)
@@ -48,6 +49,7 @@ In reviewing positive cases (high popularity) on the publication day, most news 
 
 
 <br />
+
 ## Model Fitting
 
 In this data set, we'll define an 66%/34% for training and test data.
@@ -61,6 +63,7 @@ data_test <- df.onNews[-trainIndex,]
 ```
 
 <br />
+
 **Decision Tree Analysis**
 
 ```
@@ -98,6 +101,7 @@ The visualization below shows the tree structure and the branches of tree. The m
 ![Decision Tree]({{ site.url }}/images/posts/content_images/pvn1.png)
 
 <br />
+
 **Naïve Bayes Analysis**
 
 This technique is based applying Bayes’ theorem. One significant benefit of using Naïve Bayes Analysis is that it can be very fast compared to Random Forest modeling technique or other methods. 
@@ -124,6 +128,7 @@ Resampling results across tuning parameters:
 ```
 
 <br />
+
 **Random Forest Analysis**
 
 From the Kaggle competitions, random forest analysis tends to do very well and scoring high on the Kaggle leaderboard because a random forest analysis improves predictive accuracy by generating a large number of bootstrapped trees (boosting mechanisms)
@@ -155,6 +160,7 @@ The visualization below reveals the important variables used in splitting nodes 
 
 
 <br />
+
 ## Performance Evaluation
 As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.
 
