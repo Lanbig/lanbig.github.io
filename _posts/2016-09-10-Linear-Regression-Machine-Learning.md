@@ -33,7 +33,6 @@ J = sum((X * theta - y) .^ 2) / (2*m);
 ```
 where the hypothesis h0(x) is given by the linear model
 
-<br />
 For population = 35,000, we predict a profit of 4519.767868<br />
 For population = 70,000, we predict a profit of 45342.450129<br />
 
@@ -42,8 +41,9 @@ For population = 70,000, we predict a profit of 45342.450129<br />
 predict1 = [1, 3.5] *theta;
 predict2 = [1, 7] * theta;
 ```
+<br />
+Next, the implementation of gradient descent is in gradientDescent.m
 
-Next, the implementation of gradient descent is in gradientDescent.m.
 ```matlab
 function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)
 
@@ -62,11 +62,11 @@ Visualizing J(theta_0, theta_1)
 
 #### Surface plot
 ![Surface plot](/images/posts/content_images/linear-cost-function.png)
+
 #### Contour plot
 ![Contour plot](/images/posts/content_images/linear-cost-function2.png)
 
 ```matlab
-%% ============= Part 4: Visualizing J(theta_0, theta_1) =============
 fprintf('Visualizing J(theta_0, theta_1) ...\n')
 
 % Grid over which we will calculate J
