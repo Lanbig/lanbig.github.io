@@ -10,8 +10,8 @@
   <meta name="description" content="There are a lot of benefit using Caret package. These are my favorite things from this package.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://lanbigben.github.io/2015/12/20/Useful-Features-From-Caret-package-in-R/">
-  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="https://lanbigben.github.io/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2015/12/20/Useful-Features-From-Caret-package-in-R/">
+  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="http://localhost:4000/feed.xml">
   <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,300" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/evil-icons/1.7.8/evil-icons.min.js"></script>
 </head>
@@ -104,7 +104,7 @@
       <div class="sidebar__bottom">
         <div class="column small-12 large-12">
           <div class="font-tiny">
-            &copy; 2016 Lanbig
+            &copy; 2018 Lanbig
           </div>
         </div>
 
@@ -158,7 +158,7 @@
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
         
-          <meta itemprop="og:image" content="https://lanbigben.github.io/images/posts/feature_images/useful.jpg">
+          <meta itemprop="og:image" content="http://localhost:4000/images/posts/feature_images/useful.jpg">
         
 
         <header class="post__header">
@@ -171,41 +171,40 @@
 
 <h3 id="parallel-processing">Parallel Processing</h3>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">doMC</span><span class="p">)</span>
-<span class="n">registerDoMC</span><span class="p">(</span><span class="n">cores</span> <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">doMC</span><span class="p">)</span><span class="w">
+</span><span class="n">registerDoMC</span><span class="p">(</span><span class="n">cores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
 
-<span class="n">model</span> <span class="o">&lt;-</span> <span class="n">train</span><span class="p">(</span><span class="n">y</span> <span class="o">~</span> <span class="err">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">training</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s2">"gbm"</span><span class="p">)</span>
-</code></pre>
-</div>
+</span><span class="n">model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">training</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gbm"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p><br /></p>
+
 <h3 id="spliting-data-based-on-outcome">Spliting Data based on outcome</h3>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">caret</span><span class="p">)</span>
-<span class="n">set.seed</span><span class="p">(</span><span class="m">3456</span><span class="p">)</span>
-<span class="n">trainIndex</span> <span class="o">&lt;-</span> <span class="n">createDataPartition</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="m">.8</span><span class="p">,</span>
-                                  <span class="n">list</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">,</span>
-                                  <span class="n">times</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">caret</span><span class="p">)</span><span class="w">
+</span><span class="n">set.seed</span><span class="p">(</span><span class="m">3456</span><span class="p">)</span><span class="w">
+</span><span class="n">trainIndex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">createDataPartition</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.8</span><span class="p">,</span><span class="w">
+                                  </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w">
+                                  </span><span class="n">times</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
 
-<span class="n">irisTrain</span> <span class="o">&lt;-</span> <span class="n">iris</span><span class="p">[</span> <span class="n">trainIndex</span><span class="p">,]</span>
-<span class="n">irisTest</span>  <span class="o">&lt;-</span> <span class="n">iris</span><span class="p">[</span><span class="o">-</span><span class="n">trainIndex</span><span class="p">,]</span>
-</code></pre>
-</div>
+</span><span class="n">irisTrain</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="w"> </span><span class="n">trainIndex</span><span class="p">,]</span><span class="w">
+</span><span class="n">irisTest</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="o">-</span><span class="n">trainIndex</span><span class="p">,]</span><span class="w">
+</span></code></pre></div></div>
 
 <p><br /></p>
+
 <h3 id="model-training-and-parameter-tuning">Model Training and Parameter Tuning</h3>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">fitControl</span> <span class="o">&lt;-</span> <span class="n">trainControl</span><span class="p">(</span><span class="c1">## 10-fold CV
-</span>                           <span class="n">method</span> <span class="o">=</span> <span class="s2">"repeatedcv"</span><span class="p">,</span>
-                           <span class="n">number</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span>
-                           <span class="c1">## repeated ten times
-</span>                           <span class="n">repeats</span> <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fitControl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">trainControl</span><span class="p">(</span><span class="c1">## 10-fold CV</span><span class="w">
+                           </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"repeatedcv"</span><span class="p">,</span><span class="w">
+                           </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w">
+                           </span><span class="c1">## repeated ten times</span><span class="w">
+                           </span><span class="n">repeats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
 
-<span class="n">gbm.model</span> <span class="o">&lt;-</span> <span class="n">train</span><span class="p">(</span><span class="n">y</span> <span class="o">~</span> <span class="err">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">training</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s2">"gbm"</span><span class="p">,</span> <span class="n">trControl</span> <span class="o">=</span> <span class="n">fitControl</span><span class="p">)</span>
-<span class="n">rf.model</span> <span class="o">&lt;-</span> <span class="n">train</span><span class="p">(</span><span class="n">y</span> <span class="o">~</span> <span class="err">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">training</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s2">"rf"</span><span class="p">,</span> <span class="n">trControl</span> <span class="o">=</span> <span class="n">fitControl</span><span class="p">)</span>
-<span class="n">svm.model</span> <span class="o">&lt;-</span> <span class="n">train</span><span class="p">(</span><span class="n">y</span> <span class="o">~</span> <span class="err">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">training</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s2">"svmRadial"</span><span class="p">,</span> <span class="n">trControl</span> <span class="o">=</span> <span class="n">fitControl</span><span class="p">)</span>
-</code></pre>
-</div>
+</span><span class="n">gbm.model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">training</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gbm"</span><span class="p">,</span><span class="w"> </span><span class="n">trControl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fitControl</span><span class="p">)</span><span class="w">
+</span><span class="n">rf.model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">training</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rf"</span><span class="p">,</span><span class="w"> </span><span class="n">trControl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fitControl</span><span class="p">)</span><span class="w">
+</span><span class="n">svm.model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">training</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"svmRadial"</span><span class="p">,</span><span class="w"> </span><span class="n">trControl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fitControl</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p>There are many benefits of using caret package. Check this link:<a href="http://topepo.github.io/caret/index.html">http://topepo.github.io/caret/index.html</a></p>
 
@@ -272,17 +271,17 @@
 
         <ul class="share-list">
   <li>
-    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Useful features from CARET package in R&url=https://lanbigben.github.io/2015/12/20/Useful-Features-From-Caret-package-in-R/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Useful features from CARET package in R&url=http://localhost:4000/2015/12/20/Useful-Features-From-Caret-package-in-R/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
       <div data-icon="ei-sc-twitter" data-size="s" class="share-list__icon share-list__icon--twitter"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://facebook.com/sharer.php?u=https://lanbigben.github.io/2015/12/20/Useful-Features-From-Caret-package-in-R/" rel="nofollow" target="_blank" title="Share on Facebook">
+    <a class="share-list__link" href="https://facebook.com/sharer.php?u=http://localhost:4000/2015/12/20/Useful-Features-From-Caret-package-in-R/" rel="nofollow" target="_blank" title="Share on Facebook">
     <div data-icon="ei-sc-facebook" data-size="s" class="share-list__icon share-list__icon--facebook"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://plus.google.com/share?url=https://lanbigben.github.io/2015/12/20/Useful-Features-From-Caret-package-in-R/" rel="nofollow" target="_blank" title="Share on Google+">
+    <a class="share-list__link" href="https://plus.google.com/share?url=http://localhost:4000/2015/12/20/Useful-Features-From-Caret-package-in-R/" rel="nofollow" target="_blank" title="Share on Google+">
     <div data-icon="ei-sc-google-plus" data-size="s" class="share-list__icon share-list__icon--google"></div>
     </a>
   </li>
@@ -296,7 +295,7 @@
 
 <script>
   var disqus_config = function () {
-    this.page.url = "https://lanbigben.github.io/2015/12/20/Useful-Features-From-Caret-package-in-R/";
+    this.page.url = "http://localhost:4000/2015/12/20/Useful-Features-From-Caret-package-in-R/";
   };
 
   (function() {

@@ -10,8 +10,8 @@
   <meta name="description" content="Online News Popularity data set has been selected from the UC Irvine Machine Learning Repository Link. The articles in this data set were published by Mashab...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://lanbigben.github.io/2016/03/10/Predict-Online-News-Popularity/">
-  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="https://lanbigben.github.io/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2016/03/10/Predict-Online-News-Popularity/">
+  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="http://localhost:4000/feed.xml">
   <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,300" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/evil-icons/1.7.8/evil-icons.min.js"></script>
 </head>
@@ -104,7 +104,7 @@
       <div class="sidebar__bottom">
         <div class="column small-12 large-12">
           <div class="font-tiny">
-            &copy; 2016 Lanbig
+            &copy; 2018 Lanbig
           </div>
         </div>
 
@@ -158,7 +158,7 @@
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
         
-          <meta itemprop="og:image" content="https://lanbigben.github.io/images/posts/feature_images/newsheader.jpg">
+          <meta itemprop="og:image" content="http://localhost:4000/images/posts/feature_images/newsheader.jpg">
         
 
         <header class="post__header">
@@ -176,55 +176,55 @@
 
 <p>The full source code is in <a href="https://gist.github.com/Lanbig/9c365cbd372c0d7aed81011338893e91">Github Gist</a></p>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="c1">###########Required Library##########
-</span><span class="n">library</span><span class="p">(</span><span class="n">rpart.plot</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">caret</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">e1071</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">klaR</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">rattle</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">rpart.plot</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">###########Required Library##########</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rpart.plot</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">caret</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">e</span><span class="m">1071</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">klaR</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rattle</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rpart.plot</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p><br /></p>
+
 <h2 id="data-exploratory">Data Exploratory</h2>
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
-<span class="n">theme_set</span><span class="p">(</span><span class="n">theme_bw</span><span class="p">(</span><span class="n">base_size</span> <span class="o">=</span> <span class="m">28</span><span class="p">))</span>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">theme_set</span><span class="p">(</span><span class="n">theme_bw</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28</span><span class="p">))</span><span class="w">
 
-<span class="n">qplot</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">dataChannel</span><span class="p">,</span> <span class="n">geom</span><span class="o">=</span><span class="s2">"histogram"</span><span class="p">,</span><span class="n">ylab</span> <span class="o">=</span> <span class="s2">"count"</span><span class="p">,</span><span class="n">binwidth</span> <span class="o">=</span> <span class="m">30</span><span class="p">,</span>
-      <span class="n">main</span> <span class="o">=</span> <span class="s2">"Histogram for data channel"</span><span class="p">,</span> <span class="n">xlab</span> <span class="o">=</span> <span class="s2">"Channel"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span> <span class="p">)</span> 
+</span><span class="n">qplot</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">dataChannel</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="o">=</span><span class="s2">"histogram"</span><span class="p">,</span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w">
+      </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Histogram for data channel"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Channel"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span><span class="w"> </span><span class="p">)</span><span class="w"> 
 
-<span class="n">qplot</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">pubDay</span><span class="p">,</span> <span class="n">geom</span><span class="o">=</span><span class="s2">"histogram"</span><span class="p">,</span><span class="n">ylab</span> <span class="o">=</span> <span class="s2">"count"</span><span class="p">,</span><span class="n">binwidth</span> <span class="o">=</span> <span class="m">30</span><span class="p">,</span>
-      <span class="n">main</span> <span class="o">=</span> <span class="s2">"Histogram for publication day"</span><span class="p">,</span> <span class="n">xlab</span> <span class="o">=</span> <span class="s2">"Day"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span> <span class="p">)</span> 
-</code></pre>
-</div>
-<p><img src="https://lanbigben.github.io/images/posts/content_images/pvn4.png" alt="Decision Tree" /></p>
+</span><span class="n">qplot</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">pubDay</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="o">=</span><span class="s2">"histogram"</span><span class="p">,</span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count"</span><span class="p">,</span><span class="n">binwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w">
+      </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Histogram for publication day"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Day"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span><span class="w"> </span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+<p><img src="http://localhost:4000/images/posts/content_images/pvn4.png" alt="Decision Tree" /></p>
 
 <p>Most positive cases (high popularity) are captured in Lifestyle, social and tech channel. These channels seem to be much popular than business, entertainment and word channel. For example, Social channel had 76 percent of positive cases (high popularity) and technology channel had 64 percent of positive cases.</p>
 
-<p><img src="https://lanbigben.github.io/images/posts/content_images/pvn5.png" alt="Decision Tree" /></p>
+<p><img src="http://localhost:4000/images/posts/content_images/pvn5.png" alt="Decision Tree" /></p>
 
 <p>In reviewing positive cases (high popularity) on the publication day, most news shared on weekend seems to be in the “high popularity” group. About 75 percent of the news published on Sunday was popular. The news published on weekday tent to be in “low popularity” group. For example, the majority of the news shared on Wednesday and Tuesday were unpopular.</p>
 
 <p><br /></p>
+
 <h2 id="model-fitting">Model Fitting</h2>
 
 <p>In this data set, we’ll define an 66%/34% for training and test data.</p>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="n">set.seed</span><span class="p">(</span><span class="m">415</span><span class="p">)</span>
-<span class="c1"># define an 66%/34% train/test split of the dataset
-</span><span class="n">trainIndex</span> <span class="o">&lt;-</span> <span class="n">createDataPartition</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="m">0.66</span><span class="p">,</span> <span class="n">list</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
-<span class="n">data_train</span> <span class="o">&lt;-</span> <span class="n">df.onNews</span><span class="p">[</span> <span class="n">trainIndex</span><span class="p">,]</span>
-<span class="n">data_test</span> <span class="o">&lt;-</span> <span class="n">df.onNews</span><span class="p">[</span><span class="o">-</span><span class="n">trainIndex</span><span class="p">,]</span>
-</code></pre>
-</div>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">set.seed</span><span class="p">(</span><span class="m">415</span><span class="p">)</span><span class="w">
+</span><span class="c1"># define an 66%/34% train/test split of the dataset</span><span class="w">
+</span><span class="n">trainIndex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">createDataPartition</span><span class="p">(</span><span class="n">df.onNews</span><span class="o">$</span><span class="n">share2bins</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">=</span><span class="m">0.66</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">data_train</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df.onNews</span><span class="p">[</span><span class="w"> </span><span class="n">trainIndex</span><span class="p">,]</span><span class="w">
+</span><span class="n">data_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df.onNews</span><span class="p">[</span><span class="o">-</span><span class="n">trainIndex</span><span class="p">,]</span><span class="w">
+</span></code></pre></div></div>
 
-<p><br />
-<strong>Decision Tree Analysis</strong></p>
+<p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
+<p><strong>Decision Tree Analysis</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fit.rpart8= train(share2bins ~ . ,data=data_train , method= "rpart", tuneLength = 8, trControl=trainControl(method="cv",number=10))
 
 &gt; print(fit.rpart8)
 CART 
@@ -252,73 +252,73 @@ Accuracy was used to select the optimal model using  the largest value.
 The final value used for the model was cp = 0.003605375.
 
 fancyRpartPlot(fit.rpart8$finalModel)
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>The visualization below shows the tree structure and the branches of tree. The most important five OnlineNewsPopularity data features are kw_avg_avg, data channel entertainment, data channel tech, is_weekend and dataChanelSocial. These features are on the top of the decision tree and they have the most important power to separate the classes.</p>
 
-<p><img src="https://lanbigben.github.io/images/posts/content_images/pvn1.png" alt="Decision Tree" /></p>
+<p><img src="http://localhost:4000/images/posts/content_images/pvn1.png" alt="Decision Tree" /></p>
 
-<p><br />
-<strong>Naïve Bayes Analysis</strong></p>
+<p><br /></p>
+
+<p><strong>Naïve Bayes Analysis</strong></p>
 
 <p>This technique is based applying Bayes’ theorem. One significant benefit of using Naïve Bayes Analysis is that it can be very fast compared to Random Forest modeling technique or other methods.</p>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">fit.nb</span><span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">share2bins</span> <span class="o">~</span> <span class="err">.</span> <span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data_train</span> <span class="p">,</span> <span class="n">method</span><span class="o">=</span> <span class="s2">"nb"</span><span class="p">,</span> <span class="n">trControl</span><span class="o">=</span><span class="n">trainControl</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"cv"</span><span class="p">,</span><span class="n">number</span><span class="o">=</span><span class="m">10</span><span class="p">))</span>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">fit.nb</span><span class="o">=</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">share2bins</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">data_train</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="w"> </span><span class="s2">"nb"</span><span class="p">,</span><span class="w"> </span><span class="n">trControl</span><span class="o">=</span><span class="n">trainControl</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"cv"</span><span class="p">,</span><span class="n">number</span><span class="o">=</span><span class="m">10</span><span class="p">))</span><span class="w">
 
-<span class="o">&gt;</span> <span class="n">fit.nb</span>
-<span class="n">Naive</span> <span class="n">Bayes</span> 
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">fit.nb</span><span class="w">
+</span><span class="n">Naive</span><span class="w"> </span><span class="n">Bayes</span><span class="w"> 
 
-<span class="m">26166</span> <span class="n">samples</span>
-   <span class="m">47</span> <span class="n">predictor</span>
-    <span class="m">2</span> <span class="n">classes</span><span class="o">:</span> <span class="s1">'high'</span><span class="p">,</span> <span class="s1">'low'</span> 
+</span><span class="m">26166</span><span class="w"> </span><span class="n">samples</span><span class="w">
+   </span><span class="m">47</span><span class="w"> </span><span class="n">predictor</span><span class="w">
+    </span><span class="m">2</span><span class="w"> </span><span class="n">classes</span><span class="o">:</span><span class="w"> </span><span class="s1">'high'</span><span class="p">,</span><span class="w"> </span><span class="s1">'low'</span><span class="w"> 
 
-<span class="n">No</span> <span class="n">pre</span><span class="o">-</span><span class="n">processing</span>
-<span class="n">Resampling</span><span class="o">:</span> <span class="n">Cross</span><span class="o">-</span><span class="n">Validated</span> <span class="p">(</span><span class="m">10</span> <span class="n">fold</span><span class="p">)</span> 
-<span class="n">Summary</span> <span class="n">of</span> <span class="n">sample</span> <span class="n">sizes</span><span class="o">:</span> <span class="m">23549</span><span class="p">,</span> <span class="m">23550</span><span class="p">,</span> <span class="m">23550</span><span class="p">,</span> <span class="m">23550</span><span class="p">,</span> <span class="m">23549</span><span class="p">,</span> <span class="m">23549</span><span class="p">,</span> <span class="k">...</span> 
-<span class="n">Resampling</span> <span class="n">results</span> <span class="n">across</span> <span class="n">tuning</span> <span class="n">parameters</span><span class="o">:</span>
+</span><span class="n">No</span><span class="w"> </span><span class="n">pre</span><span class="o">-</span><span class="n">processing</span><span class="w">
+</span><span class="n">Resampling</span><span class="o">:</span><span class="w"> </span><span class="n">Cross</span><span class="o">-</span><span class="n">Validated</span><span class="w"> </span><span class="p">(</span><span class="m">10</span><span class="w"> </span><span class="n">fold</span><span class="p">)</span><span class="w"> 
+</span><span class="n">Summary</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="n">sizes</span><span class="o">:</span><span class="w"> </span><span class="m">23549</span><span class="p">,</span><span class="w"> </span><span class="m">23550</span><span class="p">,</span><span class="w"> </span><span class="m">23550</span><span class="p">,</span><span class="w"> </span><span class="m">23550</span><span class="p">,</span><span class="w"> </span><span class="m">23549</span><span class="p">,</span><span class="w"> </span><span class="m">23549</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="w"> 
+</span><span class="n">Resampling</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="n">across</span><span class="w"> </span><span class="n">tuning</span><span class="w"> </span><span class="n">parameters</span><span class="o">:</span><span class="w">
 
-  <span class="n">usekernel</span>  <span class="n">Accuracy</span>   <span class="n">Kappa</span>       <span class="n">Accuracy</span> <span class="n">SD</span>  <span class="n">Kappa</span> <span class="n">SD</span>  
-  <span class="n">FALSE</span>      <span class="m">0.5198759</span>  <span class="m">0.08688965</span>  <span class="m">0.03318579</span>   <span class="m">0.05532158</span>
-   <span class="n">TRUE</span>      <span class="m">0.5998991</span>  <span class="m">0.21353378</span>  <span class="m">0.02759259</span>   <span class="m">0.04304326</span>
+  </span><span class="n">usekernel</span><span class="w">  </span><span class="n">Accuracy</span><span class="w">   </span><span class="n">Kappa</span><span class="w">       </span><span class="n">Accuracy</span><span class="w"> </span><span class="n">SD</span><span class="w">  </span><span class="n">Kappa</span><span class="w"> </span><span class="n">SD</span><span class="w">  
+  </span><span class="kc">FALSE</span><span class="w">      </span><span class="m">0.5198759</span><span class="w">  </span><span class="m">0.08688965</span><span class="w">  </span><span class="m">0.03318579</span><span class="w">   </span><span class="m">0.05532158</span><span class="w">
+   </span><span class="kc">TRUE</span><span class="w">      </span><span class="m">0.5998991</span><span class="w">  </span><span class="m">0.21353378</span><span class="w">  </span><span class="m">0.02759259</span><span class="w">   </span><span class="m">0.04304326</span><span class="w">
 
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
-<p><br />
-<strong>Random Forest Analysis</strong></p>
+<p><br /></p>
+
+<p><strong>Random Forest Analysis</strong></p>
 
 <p>From the Kaggle competitions, random forest analysis tends to do very well and scoring high on the Kaggle leaderboard because a random forest analysis improves predictive accuracy by generating a large number of bootstrapped trees (boosting mechanisms)</p>
 
-<div class="language-R highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">fit.rf</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">share2bins</span> <span class="o">~</span> <span class="err">.</span> <span class="p">,</span><span class="n">data_train</span> <span class="p">,</span> <span class="n">method</span><span class="o">=</span> <span class="s2">"rf"</span><span class="p">,</span> <span class="n">ntree</span><span class="o">=</span><span class="m">501</span> <span class="p">,</span> <span class="n">tuneGrid</span> <span class="o">=</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">mtry</span> <span class="o">=</span> <span class="m">4</span><span class="p">),</span> 
-<span class="o">+</span>                <span class="n">allowParallel</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span><span class="n">trControl</span><span class="o">=</span><span class="n">trainControl</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"cv"</span><span class="p">,</span><span class="n">number</span><span class="o">=</span><span class="m">10</span><span class="p">)</span> <span class="p">)</span>
-<span class="o">&gt;</span> 
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">fit.rf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">train</span><span class="p">(</span><span class="n">share2bins</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">,</span><span class="n">data_train</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="w"> </span><span class="s2">"rf"</span><span class="p">,</span><span class="w"> </span><span class="n">ntree</span><span class="o">=</span><span class="m">501</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">tuneGrid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">mtry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> 
+</span><span class="o">+</span><span class="w">                </span><span class="n">allowParallel</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="n">trControl</span><span class="o">=</span><span class="n">trainControl</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"cv"</span><span class="p">,</span><span class="n">number</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> 
  
-<span class="n">Random</span> <span class="n">Forest</span> 
+</span><span class="n">Random</span><span class="w"> </span><span class="n">Forest</span><span class="w"> 
 
-<span class="m">26166</span> <span class="n">samples</span>
-   <span class="m">47</span> <span class="n">predictors</span>
-    <span class="m">2</span> <span class="n">classes</span><span class="o">:</span> <span class="s1">'high'</span><span class="p">,</span> <span class="s1">'low'</span> 
+</span><span class="m">26166</span><span class="w"> </span><span class="n">samples</span><span class="w">
+   </span><span class="m">47</span><span class="w"> </span><span class="n">predictors</span><span class="w">
+    </span><span class="m">2</span><span class="w"> </span><span class="n">classes</span><span class="o">:</span><span class="w"> </span><span class="s1">'high'</span><span class="p">,</span><span class="w"> </span><span class="s1">'low'</span><span class="w"> 
 
-<span class="n">No</span> <span class="n">pre</span><span class="o">-</span><span class="n">processing</span>
-<span class="n">Resampling</span><span class="o">:</span> <span class="n">Cross</span><span class="o">-</span><span class="n">Validated</span> <span class="p">(</span><span class="m">3</span> <span class="n">fold</span><span class="p">)</span> 
-<span class="n">Summary</span> <span class="n">of</span> <span class="n">sample</span> <span class="n">sizes</span><span class="o">:</span> <span class="m">17444</span><span class="p">,</span> <span class="m">17444</span><span class="p">,</span> <span class="m">17444</span> 
-<span class="n">Resampling</span> <span class="n">results</span>
+</span><span class="n">No</span><span class="w"> </span><span class="n">pre</span><span class="o">-</span><span class="n">processing</span><span class="w">
+</span><span class="n">Resampling</span><span class="o">:</span><span class="w"> </span><span class="n">Cross</span><span class="o">-</span><span class="n">Validated</span><span class="w"> </span><span class="p">(</span><span class="m">3</span><span class="w"> </span><span class="n">fold</span><span class="p">)</span><span class="w"> 
+</span><span class="n">Summary</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="n">sizes</span><span class="o">:</span><span class="w"> </span><span class="m">17444</span><span class="p">,</span><span class="w"> </span><span class="m">17444</span><span class="p">,</span><span class="w"> </span><span class="m">17444</span><span class="w"> 
+</span><span class="n">Resampling</span><span class="w"> </span><span class="n">results</span><span class="w">
 
-  <span class="n">Accuracy</span>   <span class="n">Kappa</span>      <span class="n">Accuracy</span> <span class="n">SD</span>  <span class="n">Kappa</span> <span class="n">SD</span>  
-  <span class="m">0.6651762</span>  <span class="m">0.3222725</span>  <span class="m">0.006759968</span>  <span class="m">0.01355711</span>
+  </span><span class="n">Accuracy</span><span class="w">   </span><span class="n">Kappa</span><span class="w">      </span><span class="n">Accuracy</span><span class="w"> </span><span class="n">SD</span><span class="w">  </span><span class="n">Kappa</span><span class="w"> </span><span class="n">SD</span><span class="w">  
+  </span><span class="m">0.6651762</span><span class="w">  </span><span class="m">0.3222725</span><span class="w">  </span><span class="m">0.006759968</span><span class="w">  </span><span class="m">0.01355711</span><span class="w">
 
-<span class="n">Tuning</span> <span class="n">parameter</span> <span class="s1">'mtry'</span> <span class="n">was</span> <span class="n">held</span> <span class="n">constant</span> <span class="n">at</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="m">4</span>
-</code></pre>
-</div>
+</span><span class="n">Tuning</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="s1">'mtry'</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">held</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></code></pre></div></div>
 <p>The visualization below reveals the important variables used in splitting nodes down the tree.  For example, the most important Online News Popularity dataset features are Is_weekend, Kw_avg_avg, Datachanel and Self_reference variables. Most important features from a random forest analysis are about the same with decision tree analysis.</p>
 
-<p><img src="https://lanbigben.github.io/images/posts/content_images/pvn2.png" alt="Random Forest" /></p>
+<p><img src="http://localhost:4000/images/posts/content_images/pvn2.png" alt="Random Forest" /></p>
 
 <p><br /></p>
+
 <h2 id="performance-evaluation">Performance Evaluation</h2>
 <p>As a result, Naïve Bayes does not work very well with the dataset. Decision tree is one the useful modeling technique since this technique is easy to interpret and understand the result. Moreover, random forest analysis is the best modeling technique with the dataset because it gets the highest accuracy in both training and testing dataset.</p>
 
-<p><img src="https://lanbigben.github.io/images/posts/content_images/pvn3.png" alt="Performance comparision" /></p>
+<p><img src="http://localhost:4000/images/posts/content_images/pvn3.png" alt="Performance comparision" /></p>
 
 <p>For recommendation and future action, there are some outliers in the variables and these outliers may impact on the accuracy of the predictive models.</p>
 
@@ -386,17 +386,17 @@ fancyRpartPlot(fit.rpart8$finalModel)
 
         <ul class="share-list">
   <li>
-    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Building Predictive Modeling with Decision Tree, Naïve Bayes, Random forest in R.&url=https://lanbigben.github.io/2016/03/10/Predict-Online-News-Popularity/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Building Predictive Modeling with Decision Tree, Naïve Bayes, Random forest in R.&url=http://localhost:4000/2016/03/10/Predict-Online-News-Popularity/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
       <div data-icon="ei-sc-twitter" data-size="s" class="share-list__icon share-list__icon--twitter"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://facebook.com/sharer.php?u=https://lanbigben.github.io/2016/03/10/Predict-Online-News-Popularity/" rel="nofollow" target="_blank" title="Share on Facebook">
+    <a class="share-list__link" href="https://facebook.com/sharer.php?u=http://localhost:4000/2016/03/10/Predict-Online-News-Popularity/" rel="nofollow" target="_blank" title="Share on Facebook">
     <div data-icon="ei-sc-facebook" data-size="s" class="share-list__icon share-list__icon--facebook"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://plus.google.com/share?url=https://lanbigben.github.io/2016/03/10/Predict-Online-News-Popularity/" rel="nofollow" target="_blank" title="Share on Google+">
+    <a class="share-list__link" href="https://plus.google.com/share?url=http://localhost:4000/2016/03/10/Predict-Online-News-Popularity/" rel="nofollow" target="_blank" title="Share on Google+">
     <div data-icon="ei-sc-google-plus" data-size="s" class="share-list__icon share-list__icon--google"></div>
     </a>
   </li>
@@ -410,7 +410,7 @@ fancyRpartPlot(fit.rpart8$finalModel)
 
 <script>
   var disqus_config = function () {
-    this.page.url = "https://lanbigben.github.io/2016/03/10/Predict-Online-News-Popularity/";
+    this.page.url = "http://localhost:4000/2016/03/10/Predict-Online-News-Popularity/";
   };
 
   (function() {

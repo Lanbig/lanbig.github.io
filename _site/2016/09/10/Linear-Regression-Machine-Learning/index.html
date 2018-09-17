@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Linear Regression and Cost function</title>
-  <meta name="description" content="[Updating…] In this part of this exercise, I will implement linear regression with one variable to predict profits for a food truck.">
+  <meta name="description" content="In this part of this exercise from Coursera Machine Learning, I will implement linear regression with one variable to predict profits for a food truck. Matla...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://lanbigben.github.io/2016/09/10/Linear-Regression-Machine-Learning/">
-  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="https://lanbigben.github.io/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2016/09/10/Linear-Regression-Machine-Learning/">
+  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="http://localhost:4000/feed.xml">
   <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,300" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/evil-icons/1.7.8/evil-icons.min.js"></script>
 </head>
@@ -104,7 +104,7 @@
       <div class="sidebar__bottom">
         <div class="column small-12 large-12">
           <div class="font-tiny">
-            &copy; 2016 Lanbig
+            &copy; 2018 Lanbig
           </div>
         </div>
 
@@ -158,7 +158,7 @@
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
         
-          <meta itemprop="og:image" content="https://lanbigben.github.io/images/posts/feature_images/linear-cost-function.png">
+          <meta itemprop="og:image" content="http://localhost:4000/images/posts/feature_images/linear-cost-function.png">
         
 
         <header class="post__header">
@@ -167,25 +167,101 @@
         </header>
 
         <div class="post-content" itemprop="articleBody">
-          <p>[<strong>Updating…</strong>] In this part of this exercise, I will implement linear regression with one variable to predict profits for a food truck.</p>
+          <p>In this part of this exercise from Coursera Machine Learning, I will implement linear regression with one variable to predict profits for a food truck. 
+Matlab is the tools I used for this project. <strong>Link to <a href="https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1">Github</a></strong></p>
 
+<h3 id="plotting-the-data">Plotting the data</h3>
 <p>The first figure shows the scatter plot of profit and population in the city. 
-<img src="https://lanbigben.github.io/images/posts/content_images/linear-fit.png" alt="Scatter plot and linear line" /></p>
+<img src="/images/posts/content_images/linear-fit.png" alt="Scatter plot and linear line" /></p>
 
-<p>In this part, I will fit the linear regression parameters θ to our dataset using gradient descent.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>x^y
-</code></pre>
-</div>
-<p>For population = 35,000, we predict a profit of 4519.767868
-For population = 70,000, we predict a profit of 45342.450129</p>
+<p>The scatter plot of the training data reveals the positive relationship between profit and population. Also, the blue line is the regression line.</p>
 
-<p>Visualizing J(theta_0, theta_1)</p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">plotData</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
-<p>Surface plot</p>
+  <span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'rx'</span><span class="p">,</span> <span class="s1">'MarkerSize'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">% Plot the data </span>
+  <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'Profit in $10,000s'</span><span class="p">);</span> <span class="c1">% Set the y?axis label </span>
+  <span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Population of City in 10,000s'</span><span class="p">);</span> <span class="c1">% Set the x?axis label</span>
 
-<p>Contour plot
-<img src="https://lanbigben.github.io/images/posts/content_images/linear-cost-function.png" alt="Surface plot" />
-<img src="https://lanbigben.github.io/images/posts/content_images/linear-cost-function2.png" alt="Contour plot" /></p>
+  <span class="nb">figure</span><span class="p">;</span> <span class="c1">% open a new figure window</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="gradient-descent">Gradient descent</h3>
+<p>In this part, I will fit the linear regression parameters θ to our dataset using gradient descent. The objective of linear regression is to minimize the cost function</p>
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">J</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">.^</span> <span class="mi">2</span><span class="p">)</span> <span class="p">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="p">);</span>
+</code></pre></div></div>
+<p>where the hypothesis h0(x) is given by the linear model</p>
+
+<p>For population = 35,000, we predict a profit of 4519.767868<br />
+For population = 70,000, we predict a profit of 45342.450129<br /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">% Predict values for population sizes of 35,000 and 70,000</span>
+<span class="n">predict1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">]</span> <span class="o">*</span><span class="n">theta</span><span class="p">;</span>
+<span class="n">predict2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta</span><span class="p">;</span>
+</code></pre></div></div>
+<p><br />
+Next, the implementation of gradient descent is in gradientDescent.m</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">theta</span><span class="p">,</span> <span class="n">J_history</span><span class="p">]</span> <span class="o">=</span> <span class="n">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="nb">alpha</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">y</span><span class="p">);</span> <span class="c1">% number of training examples</span>
+<span class="n">J_history</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">num_iters</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="n">iter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_iters</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="p">(</span><span class="nb">alpha</span><span class="p">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">'</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">));</span>
+    <span class="n">J_history</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">);</span>
+<span class="k">end</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h4 id="visualizing-jtheta_0-theta_1">Visualizing J(theta_0, theta_1)</h4>
+
+<h4 id="surface-plot">Surface plot</h4>
+<p><img src="/images/posts/content_images/linear-cost-function.png" alt="Surface plot" /></p>
+
+<h4 id="contour-plot">Contour plot</h4>
+<p><img src="/images/posts/content_images/linear-cost-function2.png" alt="Contour plot" /></p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fprintf</span><span class="p">(</span><span class="s1">'Visualizing J(theta_0, theta_1) ...\n'</span><span class="p">)</span>
+
+<span class="c1">% Grid over which we will calculate J</span>
+<span class="n">theta0_vals</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">theta1_vals</span> <span class="o">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="c1">% initialize J_vals to a matrix of 0's</span>
+<span class="n">J_vals</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">),</span> <span class="nb">length</span><span class="p">(</span><span class="n">theta1_vals</span><span class="p">));</span>
+
+<span class="c1">% Fill out J_vals</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nb">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">theta1_vals</span><span class="p">)</span>
+	  <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta0_vals</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span> <span class="n">theta1_vals</span><span class="p">(</span><span class="nb">j</span><span class="p">)];</span>    
+	  <span class="n">J_vals</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1">% Because of the way meshgrids work in the surf command, we need to </span>
+<span class="c1">% transpose J_vals before calling surf, or else the axes will be flipped</span>
+<span class="n">J_vals</span> <span class="o">=</span> <span class="n">J_vals</span><span class="o">'</span><span class="p">;</span>
+<span class="c1">% Surface plot</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="nb">surf</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span><span class="p">,</span> <span class="n">J_vals</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'\theta_0'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'\theta_1'</span><span class="p">);</span>
+
+<span class="c1">% Contour plot</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="c1">% Plot J_vals as 15 contours spaced logarithmically between 0.01 and 100</span>
+<span class="nb">contour</span><span class="p">(</span><span class="n">theta0_vals</span><span class="p">,</span> <span class="n">theta1_vals</span><span class="p">,</span> <span class="n">J_vals</span><span class="p">,</span> <span class="nb">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'\theta_0'</span><span class="p">);</span> <span class="nb">ylabel</span><span class="p">(</span><span class="s1">'\theta_1'</span><span class="p">);</span>
+<span class="nb">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">theta</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s1">'rx'</span><span class="p">,</span> <span class="s1">'MarkerSize'</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'LineWidth'</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Full source code: <a href="https://github.com/Lanbig/Machine-Learning/tree/master/machine-learning-ex1/ex1">Github</a></strong></p>
 
           <div class="post__tags">
             
@@ -250,17 +326,17 @@ For population = 70,000, we predict a profit of 45342.450129</p>
 
         <ul class="share-list">
   <li>
-    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Linear Regression and Cost function&url=https://lanbigben.github.io/2016/09/10/Linear-Regression-Machine-Learning/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=Linear Regression and Cost function&url=http://localhost:4000/2016/09/10/Linear-Regression-Machine-Learning/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
       <div data-icon="ei-sc-twitter" data-size="s" class="share-list__icon share-list__icon--twitter"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://facebook.com/sharer.php?u=https://lanbigben.github.io/2016/09/10/Linear-Regression-Machine-Learning/" rel="nofollow" target="_blank" title="Share on Facebook">
+    <a class="share-list__link" href="https://facebook.com/sharer.php?u=http://localhost:4000/2016/09/10/Linear-Regression-Machine-Learning/" rel="nofollow" target="_blank" title="Share on Facebook">
     <div data-icon="ei-sc-facebook" data-size="s" class="share-list__icon share-list__icon--facebook"></div>
     </a>
   </li>
   <li>
-    <a class="share-list__link" href="https://plus.google.com/share?url=https://lanbigben.github.io/2016/09/10/Linear-Regression-Machine-Learning/" rel="nofollow" target="_blank" title="Share on Google+">
+    <a class="share-list__link" href="https://plus.google.com/share?url=http://localhost:4000/2016/09/10/Linear-Regression-Machine-Learning/" rel="nofollow" target="_blank" title="Share on Google+">
     <div data-icon="ei-sc-google-plus" data-size="s" class="share-list__icon share-list__icon--google"></div>
     </a>
   </li>
@@ -274,7 +350,7 @@ For population = 70,000, we predict a profit of 45342.450129</p>
 
 <script>
   var disqus_config = function () {
-    this.page.url = "https://lanbigben.github.io/2016/09/10/Linear-Regression-Machine-Learning/";
+    this.page.url = "http://localhost:4000/2016/09/10/Linear-Regression-Machine-Learning/";
   };
 
   (function() {
