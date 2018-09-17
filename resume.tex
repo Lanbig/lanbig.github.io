@@ -1,0 +1,149 @@
+%-------------------------
+% Latex Resume
+% Author : Rungtham (Ben) Rodrawangpai
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  CV  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%----------HEADING SECTION-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{\href{https://lanbig.github.io/}{\Large Ben Rodrawangpai}} & Email: \href{mailto:lanbig@msn.com}{lanbig@msn.com}\\
+    \href{https://lanbig.github.io/}{https://lanbig.github.io} & Mobile: +1-541-908-5234 \\
+\end{tabular*}
+
+%----------EDUCATIOn SECTION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {DePaul University}{Chicago, IL}
+      {Master of Science in Predictive Analytics; Computational Method Concentration;  GPA: 3.98}{Sep. 2014 -- Nov. 2016}
+    \resumeSubheading
+      {King Mongkut's Institute of Technology Ladkrabang}{Bangkok, Thailand}
+      {Bachelor of Engineering in Computer Engineer}{May. 2007 -- March. 2011}
+  \resumeSubHeadingListEnd
+
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Underwriters Laboratories Inc. }{Northbrook, IL}
+      {Associate Data Scientist}{Jun 2016 - Present}
+      \resumeItemListStart
+        \resumeItem{UL Data Lake Dashboard}
+          {Developed a data portal (\href{https://opendata.ul.com}{https://opendata.ul.com}) that consolidates data from multiple databases, 
+          which helps Engineering team and Marketing team obtain access to multiple data sources, curated for content and quality, to support their analysis and research. }
+        \resumeItem{Safety Mark Detection}
+          {Applied machine learning - object detection methods and trained an algorithm to detect UL Marks on the uploaded pictures to the website, thus providing the opportunity to find potentially unsafe products that have been certified.}
+        \resumeItem{Recommendation System}
+          {Implemented recommendation engines using content-based filtering that sort through data to find incidents of a similar nature to the ones currently being viewed.
+           Term Frequency (TF) and Inverse Document Frequency (IDF) are used in the algorithm.}    
+        \resumeItem{Data Collection}
+        {Developed automated web scraping tools or used the API to collect data from multiple sources. Extracted and inserted bulk data into MongoDB and Elasticsearch. Also providing a REST API to other business units to access for their analysis and research.}
+        \resumeItem{Data Engineer}{Set up and designed Data Science Stack on cloud infrastructure using Ubuntu as a Server OS, Nginx as a web server and reverse proxy, Flask as web microservice, MongoDB and Elasticsearch as a database.}
+        \resumeItem{Product Failure Classification}{Developed Predictive modeling using Neural Network (TensorFlow) and Natural Language Processing (NLTK) to classify types of product failure.}
+        \resumeItem{UL Safety Index}
+          {Led the technical effort for the UL Safety Index (\href{https://ulsafetyindex.org}{https://ulsafetyindex.org}) and wrote the R script to analyze 
+          trend over time, calculate the Pearson's and Spearman's correlation coefficient and create an interactive dashboard using R Shiny. } 
+      \resumeItemListEnd
+    
+    \resumeSubheading
+      {DePaul University}{Chicago, IL}
+      {IT-Software Support}{Jan 2015 - May 2016}
+      \resumeItemListStart
+        \resumeItem{Genius Squad}{Advised and troubleshot hardware and software related issues for students’ and faculties’ computers.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%--------PROGRAMMING SKILLS SECTION------------
+\section{Programming Skills}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Languages}{Python, R, SQL, JavaScript, HTML}
+    \resumeSubItem{Technologies}{Scikit-learn, TensorFlow, Flask, Elasticsearch, MongoDB, R Shiny, Hadoop, AWS, Azure, Unix, Nginx, }
+  \resumeSubHeadingListEnd
+
+%--------CERTIFICATE  SECTION------------
+\section{Certificate}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Udacity}{Nanodegree in Deep Learning Foundation}
+    \resumeSubItem{Coursera}{R Programming, Exploratory Data Analysis, The Data Scientist’s Toolbox}
+  \resumeSubHeadingListEnd
+
+%--------PROJECTS  SECTION------------
+\section{Projects}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Time Series Analysis} {Implemented Predictive Models to forecast volatility and price fluctuation in MSFT.}
+    \resumeSubItem{Data Visualization}{Researched on product associations and customer behaviors using Heat Map, Network Graph, Time Series and Chord Diagram.}
+    \resumeSubItem{Data Regression} {Developed Multivariate Linear Regression models to study the effect of variables on the unemployment rate and predict the unemployment rate.}
+  \resumeSubHeadingListEnd
+
+%--------PROJECTS  SECTION------------
+\section{Volunteers}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Habitat for Humanity} {House building project. In the end, this house will provide a family in need a safe and secure place to live. (Sep 2017)}
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+\end{document}

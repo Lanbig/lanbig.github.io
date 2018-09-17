@@ -5,9 +5,34 @@
     <description>In the world of Data Science and Machine Leaning.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Sep 2018 10:52:46 -0500</pubDate>
-    <lastBuildDate>Mon, 17 Sep 2018 10:52:46 -0500</lastBuildDate>
+    <pubDate>Mon, 17 Sep 2018 12:03:10 -0500</pubDate>
+    <lastBuildDate>Mon, 17 Sep 2018 12:03:10 -0500</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
+    
+      <item>
+        <title>TensorFlow Object Detection. Where is Brown's head?</title>
+        <description>&lt;p&gt;My fun mini weekend project on Object Recognition. I’m very impressed on the evolution of Computer Vision. The computer started recognizing the objects by using ~200 images for the training data. The project was performed using an NVIDIA Tesla K80 and training for ~12 hours on Google Cloud Compute Engine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/content_images/line4.png&quot; alt=&quot;Brown Object Detection&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;how-do-i-train-the-algorithm&quot;&gt;How do I train the algorithm?&lt;/h3&gt;
+&lt;h5 id=&quot;step-1-manually-label-region-objectelement-in-each-image-heavy-lifiting-work&quot;&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; manually label region (object/element) in each image (heavy lifiting work!).&lt;/h5&gt;
+&lt;p&gt;Labels will store (x,y) coordinates of boundary box in the picture with class/type of the box.&lt;/p&gt;
+&lt;h5 id=&quot;step-2-feed-labeled-image-to-object-detection-algorithm-and-select-pre-trained-deep-learning-model&quot;&gt;&lt;strong&gt;Step 2:&lt;/strong&gt; Feed labeled image to object detection algorithm and select pre-trained deep learning model.&lt;/h5&gt;
+&lt;p&gt;I’ve chose “Faster R-CNN” model becasue it recieved a good score of mAP (mean Average Precision). However, it takes longer time to process images than other models.&lt;/p&gt;
+&lt;h5 id=&quot;step-3-monitor-training-process-closely-through-an-algorithm-dashboard&quot;&gt;&lt;strong&gt;Step 3:&lt;/strong&gt; Monitor training process closely through an algorithm dashboard.&lt;/h5&gt;
+&lt;h5 id=&quot;step-4-validate-model-by-applying-models-on-images-that-are-in-test-set&quot;&gt;&lt;strong&gt;Step 4:&lt;/strong&gt; Validate model by applying models on images that are in test set.&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/content_images/line3.png&quot; alt=&quot;Brown Object Detection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Check out GitHub&lt;/strong&gt; &lt;a href=&quot;https://github.com/Lanbig/custom-object-detection&quot;&gt;https://github.com/Lanbig/custom-object-detection&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 May 2017 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Linear Regression and Cost function</title>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TensorFlow Object Detection. Where is Brown's head?</title>
+  <meta name="description" content="My fun mini weekend project on Object Recognition. I’m very impressed on the evolution of Computer Vision. The computer started recognizing the objects by us...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/">
+  <link rel="alternate" type="application/rss+xml" title="Lanbig" href="http://localhost:4000/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,300" rel="stylesheet" type="text/css">
+  <script src="https://cdn.jsdelivr.net/evil-icons/1.7.8/evil-icons.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Google Analytics Code -->
+
+  <div class="off-canvas-container">
+    <div class="sidebar">
+  <div class="row">
+
+    <div class="column small-8 large-12">
+      <h1 class="sidebar__logo logo"><a href="/">Lanbig</a></h1>
+      <div class="sidebar__description font-tiny">In the world of Data Science and Machine Leaning.</div>
+    </div>
+
+    <label class="off-canvas-toggle"><span data-icon="ei-navicon" data-size="s"></span></label>
+
+    <div class="off-canvas-content">
+
+      <div class="column small-12 large-12">
+        <nav class="navigation">
+          <ul class="list-bare text-center">
+            
+              
+            
+              
+                
+                  <li>
+                    <a class="page-link" href="/about">About</a>
+                  </li>
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+            <li><a class="subscribe-button icon-feed" href="/feed.xml">RSS</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="column small-12 large-12">
+        <ul class="social-nav social-icons">
+
+          
+          <li>
+            <a href="http://www.github.com/lanbig" target="_blank">
+              <span data-icon="ei-sc-github" data-size="s"></span>
+            </a>
+          </li>
+          
+
+          
+
+          
+          <li>
+            <a href="https://www.linkedin.com/in/lanbig" target="_blank">
+              <span data-icon="ei-sc-linkedin" data-size="s"></span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:lanbig@msn.com" target="_blank">
+              <span data-icon="ei-envelope" data-size="s"></span>
+            </a>
+          </li>
+          
+
+          <li>
+            <a class="toggle-search-button" href="#">
+              <span data-icon="ei-search" data-size="s"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar__bottom">
+        <div class="column small-12 large-12">
+          <div class="font-tiny">
+            &copy; 2018 Lanbig
+          </div>
+        </div>
+
+        <div class="column small-12 large-12 poweredby">
+          <div class="font-tiny">
+            Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="http://www.freepik.com/">Freepik</a>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- off-canvas-content -->
+
+  </div>
+</div>
+
+<div class="search-form-container">
+
+  <form class="search-form">
+    <fieldset class="search-form__fieldset">
+      <div class="row">
+        <div class="column column--center large-8">
+          <input class="search-form__field" placeholder="Type to search" autofocus>
+          <input class="search-form__submit" type="submit" value="search">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="row">
+    <div class="column column--center large-8">
+      <div class="search-results"></div>
+    </div>
+  </div>
+
+  <div data-icon="ei-close" data-size="s" class="close-search-button search-form-container__close"></div>
+
+</div>
+
+    
+
+
+
+<div class="wrapper">
+  <div class="row row--full">
+
+    <div class="column column--center medium-12 large-12">
+      <div class="grey-bg CoverImage FlexEmbed FlexEmbed--16by9" style="background-image: url(/images/posts/feature_images/line-object-detection.png)"></div>
+    </div>
+
+    <div class="column column--center medium-12 large-10">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+        
+          <meta itemprop="og:image" content="http://localhost:4000/images/posts/feature_images/line-object-detection.png">
+        
+
+        <header class="post__header">
+          <h2 class="post__title" itemprop="name headline">TensorFlow Object Detection. Where is Brown's head?</h2>
+          <time class="post__date" datetime="2017-05-01T00:00:00-05:00" itemprop="datePublished">May 1, 2017</time>
+        </header>
+
+        <div class="post-content" itemprop="articleBody">
+          <p>My fun mini weekend project on Object Recognition. I’m very impressed on the evolution of Computer Vision. The computer started recognizing the objects by using ~200 images for the training data. The project was performed using an NVIDIA Tesla K80 and training for ~12 hours on Google Cloud Compute Engine.</p>
+
+<p><img src="/images/posts/content_images/line4.png" alt="Brown Object Detection" /></p>
+
+<h3 id="how-do-i-train-the-algorithm">How do I train the algorithm?</h3>
+<h5 id="step-1-manually-label-region-objectelement-in-each-image-heavy-lifiting-work"><strong>Step 1:</strong> manually label region (object/element) in each image (heavy lifiting work!).</h5>
+<p>Labels will store (x,y) coordinates of boundary box in the picture with class/type of the box.</p>
+<h5 id="step-2-feed-labeled-image-to-object-detection-algorithm-and-select-pre-trained-deep-learning-model"><strong>Step 2:</strong> Feed labeled image to object detection algorithm and select pre-trained deep learning model.</h5>
+<p>I’ve chose “Faster R-CNN” model becasue it recieved a good score of mAP (mean Average Precision). However, it takes longer time to process images than other models.</p>
+<h5 id="step-3-monitor-training-process-closely-through-an-algorithm-dashboard"><strong>Step 3:</strong> Monitor training process closely through an algorithm dashboard.</h5>
+<h5 id="step-4-validate-model-by-applying-models-on-images-that-are-in-test-set"><strong>Step 4:</strong> Validate model by applying models on images that are in test set.</h5>
+
+<p><img src="/images/posts/content_images/line3.png" alt="Brown Object Detection" /></p>
+
+<p><strong>Check out GitHub</strong> <a href="https://github.com/Lanbig/custom-object-detection">https://github.com/Lanbig/custom-object-detection</a></p>
+
+          <div class="post__tags">
+            
+          </div>
+        </div>
+
+        <hr>
+
+        
+          <div class="box box--author">
+
+  
+  <figure class="author-image">
+    <div class="img" style="background-image: url(/images/avatar.jpg)">
+      <span class="hidden">Ben Rodrawangpai's Picture</span>
+    </div>
+  </figure>
+  
+
+  <div class="box__body">
+
+    <h4 class="box__title">
+      Ben Rodrawangpai
+    </h4>
+
+    
+    <p class="box__text">Ben has over 3 years of experience in Data Science, and he is a MSc in Predictive Analytics candidate at DePaul University. Also, he is working as a Data Analytics Intern at Underwriters Laboratories Inc.</p>
+    
+
+    <div class="author-meta box__text">
+      
+
+      
+      <div class="author-link inline-block">
+        <a href="https://www.linkedin.com/in/lanbig" target="_blank">
+          <span data-icon="ei-sc-linkedin" data-size="s"></span>
+        </a>
+      </div>
+      
+
+      
+      <div class="author-link inline-block">
+        <a href="http://www.github.com/lanbig" target="_blank">
+          <span data-icon="ei-sc-github" data-size="s"></span>
+        </a>
+      </div>
+      
+
+      
+      <div class="author-link inline-block">
+        <a href="mailto:lanbig@msn.com" target="_blank">
+          <span data-icon="ei-envelope" data-size="s"></span>
+        </a>
+      </div>
+      
+    </div>
+
+  </div><!-- box__body -->
+
+</div><!-- box -->
+        
+
+        <ul class="share-list">
+  <li>
+    <a class="share-list__link" href="https://twitter.com/intent/tweet?text=TensorFlow Object Detection. Where is Brown's head?&url=http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+      <div data-icon="ei-sc-twitter" data-size="s" class="share-list__icon share-list__icon--twitter"></div>
+    </a>
+  </li>
+  <li>
+    <a class="share-list__link" href="https://facebook.com/sharer.php?u=http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/" rel="nofollow" target="_blank" title="Share on Facebook">
+    <div data-icon="ei-sc-facebook" data-size="s" class="share-list__icon share-list__icon--facebook"></div>
+    </a>
+  </li>
+  <li>
+    <a class="share-list__link" href="https://plus.google.com/share?url=http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/" rel="nofollow" target="_blank" title="Share on Google+">
+    <div data-icon="ei-sc-google-plus" data-size="s" class="share-list__icon share-list__icon--google"></div>
+    </a>
+  </li>
+</ul>
+
+        <section class="disqus">
+  <h5 class="separator">
+    <span class="separator__title">Comments</span>
+  </h5>
+  <div id="disqus_thread"></div>
+
+<script>
+  var disqus_config = function () {
+    this.page.url = "http://localhost:4000/2017/05/01/TensorFlow-Object-Detection-Line-Brown/";
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//lanbig.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+      </article>
+    </div>
+
+  </div> <!-- row-->
+</div> <!-- wrapper -->
+  </div>
+
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+  <script type="text/javascript" src="/js/jquery.ghostHunter.min.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+</body>
+
+</html>
